@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bands</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+</head>
+
+<style>
+  thead, th, table, td {
+    border: 1px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .spacing {
+    margin-left: 5%;
+  }
+
+  .inline {
+      display:inline-block;
+  }
+
+  thead {
+    background-color: rgb(171, 179, 182);
+    font-weight: bold;
+  }
+
+  .m-l {
+    margin-left: 15%;
+  }
+
+  .formfield * {
+  vertical-align: top;
+}
+
+.a {
+        margin-left: 50%;
+    }
+
+.c {
+  margin-left: 30%;
+}
+
+.navbar1{
+    height: 5%;
+    padding: 1%;
+    background: linear-gradient(#21B4B1,white);
+}
+
+.navlinks-box{
+    vertical-align: middle;
+}
+
+.navlinks{
+    box-sizing: border-box;
+    margin:4%;
+    color: black;
+}
+
+</style>
+<body>
+<% if current_user %>
+<nav class="navbar1">
+    <div class="row">
+        <div class="col-8">
+            <% if current_page?('/dashboard') %>
+                <h2>Welcome <%=session[:firstname] %></h2>
+            <% end %>
+        </div>
+        <div class="navlinks-box col-4">
+            <a class="navlinks" href="/dashboard">Home</a>
+            <a class="navlinks" href="/bands">Bands</a>
+            <a class="navlinks" href="/concerts/all">Concerts</a>
+            <a class="navlinks" href="/session" data-method='delete'>Logout</a>
+        </div>
+    </div>
+</nav>
+<% end %>
+<h1><%= image_tag "image.jpg" %> Music We Love</h1>
+
+<%= yield %>
+
+</body>
+</html>

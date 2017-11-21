@@ -1,0 +1,66 @@
+<style>
+legend.scheduler-border {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+    box-shadow:  0px 0px 0px 0px #000;
+}
+</style>
+
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    </head>
+<body>
+    <div class="container">
+        <div class = "row">
+            <div class ="col-sm-6">
+
+            <fieldset class="scheduler-border">
+                <legend class="scheduler-border"> <h3>Add Concert</h3> </legend>
+
+                <form action="/concerts" method="post">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <div class="form-group">
+                        <label for="date">Date:</label> <input class="form-control form-control-sm" type="date" name="date"> <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="venue">Venue:</label> <input class="form-control form-control-sm" type="text" name="venue"> <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City:</label> <input class="form-control form-control-sm" type="text" name="city"> <br>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State:</label> <input class="form-control form-control-sm" type="text" name="state"><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="band">Band:</label> <input class="form-control form-control-sm" type="text" name="band"> <br>
+                    </div>
+                    <input class="btn" type="submit" value="Add Concert">
+                </form>
+
+
+
+            </fieldset>
+            </div>
+        </div>
+    </div>
+
+    <% if flash[:errors] %>
+        <% flash[:errors].each do |e| %>
+        <%= e %>
+        <% end %>
+    <% end %>
+
+    </body>
+</html>

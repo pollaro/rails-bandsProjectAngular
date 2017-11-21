@@ -1,0 +1,91 @@
+<style>
+.table {
+    width: auto;
+    display: block;
+}
+</style>
+<!--
+<% if @user.id!=current_user %>
+    <form action="/friends/<%= @user.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="delete">
+        <input type="submit" name="" value="Stop Following">
+    </form>
+<% else %>
+    <% if flash[:errors] %>
+        <% flash[:errors].each do |f| %>
+        <p> <%= f %></p>
+        <% end %>
+    <% end %>
+    <form action="/friends/<%= @user.id %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="submit" name="" value="Follow">
+    </form>
+<% end %> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            <h1>Learn more about: <%= @user.first_name %> <%= @user.last_name %></h1>
+        </div>
+        <div class="col-4">
+            <% if @isfriend.count == 0 %>
+                    <form action="/friends/<%= @user.id %>" method="post">
+                        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                        <input class="btn" type="submit" name="" value="Add as friend">
+                    </form>
+            <% else %>
+                <form action="/friends/<%= @user.id %>" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+                    <input class="btn" type="submit" name="" value="Remove friend">
+                </form>
+            <% end %>
+        </div>
+    </div>
+    <div class="row">
+        <div class = "col">
+        <form action="/friends/create" method="post">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        </form>
+        <h3>Friends</h3>
+        <table>
+            <thead>
+                <td>Names:</td>
+            </thead>
+            <tbody>
+            <% if @friendships %>
+                <% @friendships.each do |friend| %>
+                    <tr>
+                        <td><a href="/users/<%=friend.id%>"><%=friend.first_name%> <%=friend.last_name%></a></td>
+
+                    </tr>
+                <% end %>
+            <% end %>
+            </tbody>
+
+        </table>
+
+        <br>
+        <br>
+        <h3>Past Shows Attended</h3>
+
+        <table>
+                <thead>
+                    <td>Show details:</td>
+                </thead>
+                <tbody>
+                    <% if @concerts %>
+                        <% @concerts.each do |concert| %>
+                        <tr>
+                            <td><a href="/concerts/<%=concert.id%>"><%=concert.date%> <%=concert.band.name%></a></td>
+        
+                        </tr>
+                        <% end %>
+                    <% end %>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    </div>
