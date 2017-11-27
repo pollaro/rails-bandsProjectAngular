@@ -1,8 +1,10 @@
 .regBox, .loginBox{
     display: inline-block;
-    width: 40%;
+    max-width: 33%;
+    width: 100%;
     vertical-align: top;
     padding: 3%;
+    text-align: left;
 }
 
 fieldset{
