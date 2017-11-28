@@ -2,6 +2,7 @@
     display: inline-block;
     text-align: left;
     padding: 3%;
+    padding-top: 0%;
 }
 
 .leftCol{
@@ -11,6 +12,7 @@
 .leftCol fieldset{
     width: 50%;
     padding: 2%;
+    display: inline-block;
 }
 
 .leftCol label{
@@ -23,16 +25,15 @@ fieldset input{
     margin: 1%;
 }
 
-.pastShows{
-    margin-top: 5%;
-}
-
 .pastShows table, .rightCol table{
     margin-top: 2%;
 }
 
 #wish{
-    margin-top: 10%;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -0.2%;
+    margin-left: 3%;
 }
 
 .rightCol{

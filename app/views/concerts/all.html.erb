@@ -8,17 +8,17 @@
                     <td>Show details:</td>
                 </thead>
             <tbody>
-
+                <% if @concerts %>
                 <% @concerts.each do |c| %>
                 <tr>
-            <td>
+                    <td>
                     <form action="/concerts/<%=c.id%>">
                         <input type="submit" class="btn-link" value =" <%= c.date %> <%= c.band.name %> <%= c.city %>" >
                     </form>
-                </td>
-            </tr>
+                    </td>
+                </tr>
                 <% end %>
-
+                <% end %>
             </tbody>
             </table>
         </div>

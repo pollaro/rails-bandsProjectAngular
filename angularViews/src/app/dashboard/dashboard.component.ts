@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+    // These variables and declarations may all have to be changed when backend connected
+
     show = new class{
         date = ''
         artist = ''

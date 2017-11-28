@@ -1,4 +1,15 @@
 <div class="col leftCol">
+    <div class="pastShows">
+        <h3>Past Shows Attended</h3>
+        <table>
+            <tr>
+                <th>Show Details</th>
+            </tr>
+            <tr *ngFor="let show of shows">
+                <td><a [routerLink]="['concerts',show.concert.id]">{{ show.concert.date }} {{ show.concert.band.name }} {{ show.concert.city }}</a></td>
+            </tr>
+        </table>
+    </div>
     <fieldset>
         <legend><h2>Find Shows</h2></legend>
         <form #findShow="ngForm" (submit)="findShow()">
@@ -24,20 +35,21 @@
             <input type="submit" id="findBut" value="Find" [disabled]="!findShow.form.valid"><br>
         </form>
     </fieldset>
-    <div class="pastShows">
-        <h3>Past Shows Attended</h3>
+    <div id="wish">
+        <h3>Band Wish List</h3>
         <table>
             <tr>
-                <th>Show Details</th>
+                <th>Name</th>
             </tr>
-            <tr *ngFor="let show of shows">
-                <td><a [routerLink]="['concerts',show.concert.id]">{{ show.concert.date }} {{ show.concert.band.name }} {{ show.concert.city }}</a></td>
+            <tr *ngFor="let b of bands">
+                <td><a [routerLink]="['bands',b.id]">{{ b.name }}</a></td>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="col rightCol">
+    <router-outlet></router-outlet>
     <h3>Friends</h3>
     <table>
         <tr>
@@ -56,13 +68,4 @@
         #friend="ngModel"><br>
         <input type="submit" id="friendSub" value="Find" [disabled]="!findFriend.form.valid"><br>
     </form>
-    <h3 id="wish">Band Wish List</h3>
-    <table>
-        <tr>
-            <th>Name</th>
-        </tr>
-        <tr *ngFor="let b of bands">
-            <td><a [routerLink]="['bands',b.id]">{{ b.name }}</a></td>
-        </tr>
-    </table>
 </div>

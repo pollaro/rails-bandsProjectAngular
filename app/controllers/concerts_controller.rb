@@ -9,7 +9,7 @@ class ConcertsController < ApplicationController
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
         puts response.body
-      
+
 
         if response["code"].eql? 404
             @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city], date:params[:date])
@@ -28,20 +28,20 @@ class ConcertsController < ApplicationController
             b = Band.find_by(name: params[:artist])
             if b.nil?
                 b = Band.create(name:params[artist])
-                c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"]) 
+                c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"])
                 if c.valid?
                     c.save
                 end
-            else 
+            else
                 c = Concert.find_by(band: b, date:params[:date], city:params[:city])
                 if c.nil?
-                    c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"]) 
+                    c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"])
                     if c.valid?
                         c.save
                     end
-                end 
+                end
             end
-    
+
             @longitude = testvar["setlist"][0]["venue"]["city"]["coords"]["long"]
             @lat = testvar["setlist"][0]["venue"]["city"]["coords"]["lat"]
             @songlist = testvar["setlist"][0]["sets"]["set"]
@@ -55,7 +55,7 @@ class ConcertsController < ApplicationController
 
             render '/concerts/index.html.erb'
         end
-    
+
     end
 
     def new
@@ -66,16 +66,16 @@ class ConcertsController < ApplicationController
         artist = @concert.band.name
         cityname = @concert.city
         tempdate = @concert.date.to_s.split('-')
-    
+
 
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
-        
+
         if response["code"].eql? 404
             @concert
             render 'info.html.erb'
-            
+
         else
             testvar = JSON.parse(response.body)
 
