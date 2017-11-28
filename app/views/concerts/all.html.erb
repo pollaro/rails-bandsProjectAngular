@@ -9,15 +9,15 @@
                 </thead>
             <tbody>
                 <% if @concerts %>
-                <% @concerts.each do |c| %>
-                <tr>
-                    <td>
-                    <form action="/concerts/<%=c.id%>">
-                        <input type="submit" class="btn-link" value =" <%= c.date %> <%= c.band.name %> <%= c.city %>" >
-                    </form>
-                    </td>
-                </tr>
-                <% end %>
+                    <% @concerts.each do |c| %>
+                    <tr>
+                        <td>
+                        <form action="/concerts/<%=c.id%>">
+                            <input type="submit" class="btn-link" value =" <%= c.date %> <%= c.band.name %> <%= c.city %>" >
+                        </form>
+                        </td>
+                    </tr>
+                    <% end %>
                 <% end %>
             </tbody>
             </table>

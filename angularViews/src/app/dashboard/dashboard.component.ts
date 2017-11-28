@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ConcertsService } from '../concerts.service'
+import { UsersService } from '../users.service'
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +11,15 @@ export class DashboardComponent implements OnInit {
 
     // These variables and declarations may all have to be changed when backend connected
 
-    show = new class{
+    current_user
+
+    show = new class Concert{
         date = ''
         artist = ''
         city = ''
     }
 
-    friend = new class{
+    friend = new class Friendship{
         friend = ''
     }
 
@@ -23,9 +27,17 @@ export class DashboardComponent implements OnInit {
     bands = []
     friends = []
 
-    constructor() { }
+    constructor(private _concertService: ConcertsService, private _userService: UsersService) { }
 
     ngOnInit() {
+        this.current_user = this._userService.getCurrentUser()
+        console.log(this.current_user)
+        this.getAllAttended(this.current_user)
     }
+
+    getAllAttended(user){
+        this._concertService.getAllAttended(user,
+            (response) => { this.shows = response }
+        )}
 
 }

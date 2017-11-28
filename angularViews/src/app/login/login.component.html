@@ -64,7 +64,7 @@
             <input type="text"
             name="logEmail"
             required
-            [(ngModel)]="loginUser.logEmail"
+            [(ngModel)]="logUser.logEmail"
             #logEmail="ngModel"
             pattern="[a-zA-Z0-9\.-]+@[a-zA-Z0-9]+\.[a-zA-Z]{3}"><br>
             <span class="errors" [hidden]="logEmail.valid || logEmail.pristine">Email is required to login</span><br>
@@ -72,7 +72,7 @@
             <input type="password"
             name="logPass"
             required
-            [(ngModel)]="loginUser.logPass"
+            [(ngModel)]="logUser.logPass"
             #logPass="ngModel"><br>
             <span class="errors" [hidden]="logPass.valid || logPass.pristine">Password is required to login</span><br>
             <input type="submit" id="logBut" value="Login" [disabled]="!loginForm.form.valid">

@@ -8,13 +8,18 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShowConcertComponent } from './dashboard/show-concert/show-concert.component';
+import { ConcertsService } from './concerts.service'
+import { UsersService } from './users.service';
+import { BandsComponent } from './bands/bands.component'
+import { BandsService } from './bands.service'
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ShowConcertComponent
+    ShowConcertComponent,
+    BandsComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +27,10 @@ import { ShowConcertComponent } from './dashboard/show-concert/show-concert.comp
     HttpModule,
     FormsModule
   ],
-  providers: [],
+  providers: [ConcertsService,
+      UsersService,
+      BandsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
