@@ -19,8 +19,16 @@
                 #bandname="ngModel"
                 required
                 minlength="1"><br>
-                <input type="submit" id="bandSub" value="Search">
+                <input type="submit" id="bandSub" value="Search" [disabled]="!bandForm.form.valid">
             </form>
         </fieldset>
+        <table [hidden]="!searchResults">
+            <tr>
+                <th>Results</th>
+            </tr>
+            <tr *ngFor='let r of searchResults'>
+                <td><button type="button" class="linkButton" (click)="addBand(r)">{{ r.name }}</button></td>
+            </tr>
+        </table>
     </div>
 </div>

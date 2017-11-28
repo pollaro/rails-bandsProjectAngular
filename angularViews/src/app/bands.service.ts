@@ -14,8 +14,19 @@ export class BandsService {
     }
 
     bandSearch(bandname,callback){
+        var parsedRes
         this._http.get('https://ws.audioscrobbler.com/2.0/?method=artist.search&artist='+bandname+'&api_key=ba268e660cd43a240846b8eec02b92f9&limit=5&format=json').subscribe(
-            (response) => { callback(response.json()) },
+            (response) => {
+                response = response.json();
+                parsedRes = response['results']['artistmatches']['artist']
+                callback(parsedRes) },
+            (error) => { console.log(error) }
+        )
+    }
+
+    addBand(newBand,callback){
+        this._http.post('http://localhost:3000/bands/new',newBand).subscribe(
+            (response) => { callback(response) },
             (error) => { console.log(error) }
         )
     }

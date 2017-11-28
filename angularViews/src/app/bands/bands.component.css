@@ -38,3 +38,21 @@ fieldset input{
 fieldset input[type=text]{
     height: 1.2rem;
 }
+
+.bandSearch table, .bandSearch tr{
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.linkButton{
+    margin-left: 5%;
+    margin-top: 1%;
+    background: none;
+    border: none;
+    padding: 0;
+    text-decoration: underline;
+    font-size: 1.2rem;
+    cursor: auto;
+    color: #2C0BE8;
+    font-family: arial,sans-serif;
+}

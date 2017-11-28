@@ -33,4 +33,11 @@ export class BandsComponent implements OnInit {
         )
     }
 
+    addBand(newBand){
+        this._bandService.addBand(newBand,
+            (response) => { console.log(response) }
+        )
+        this.getAll()
+    }
+
 }
