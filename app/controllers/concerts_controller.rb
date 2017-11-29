@@ -133,7 +133,7 @@ class ConcertsController < ApplicationController
     end
 
     def all
-        @concerts = Concert.all
-        render 'all.html.erb'
+        @concerts = Concert.includes(:band).all
+        render json: @concerts.to_json(include: :band) 
     end
 end

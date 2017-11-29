@@ -13,4 +13,11 @@ export class ConcertsService {
         )
     }
 
+    getAllConcerts(callback){
+        this._http.get('http://localhost:3000/concerts').subscribe(
+            (response) => { callback(response.json()) },
+            (error) => { console.log(error) }
+        )
+    }
+
 }

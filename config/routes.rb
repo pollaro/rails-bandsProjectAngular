@@ -6,5 +6,7 @@ Rails.application.routes.draw do
 
     get '/bands' => 'bands#index'
     post '/bands/new' => 'bands#new'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+    get '/concerts' => 'concerts#all'
+    
 end

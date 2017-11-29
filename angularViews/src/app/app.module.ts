@@ -11,7 +11,9 @@ import { ShowConcertComponent } from './dashboard/show-concert/show-concert.comp
 import { ConcertsService } from './concerts.service'
 import { UsersService } from './users.service';
 import { BandsComponent } from './bands/bands.component'
-import { BandsService } from './bands.service'
+import { BandsService } from './bands.service';
+import { ConcertsComponent } from './dashboard/concerts/concerts.component';
+import { FriendsComponent } from './dashboard/friends/friends.component'
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { BandsService } from './bands.service'
     LoginComponent,
     DashboardComponent,
     ShowConcertComponent,
-    BandsComponent
+    BandsComponent,
+    ConcertsComponent,
+    FriendsComponent
   ],
   imports: [
     BrowserModule,
