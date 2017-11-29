@@ -41,17 +41,17 @@ fieldset input{
     vertical-align: top;
 }
 
-.rightCol input{
+/*.rightCol input{
     margin: 1%;
     width: 90%;
     height: 1.5rem;
-}
+}*/
 
 .rigthCol {
     margin-top: 10%;
 }
 
-#findBut, #friendSub{
+/*#findBut, #friendSub{
     width: 33%;
     height: 2rem;
     border: none;
@@ -65,6 +65,6 @@ fieldset input{
 }
 
 #findBut:disabled, #friendSub:disabled{
-    /*color: gray;*/
+    color: gray;
     opacity: 0.66;
-}
+}*/

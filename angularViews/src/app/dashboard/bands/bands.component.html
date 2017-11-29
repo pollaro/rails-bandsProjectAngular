@@ -1,0 +1,12 @@
+<div class="bandContainer">
+    <div class="bandList">
+        <table>
+            <tr>
+                <th>Bands Entered</th>
+            </tr>
+            <tr *ngFor="let b of bands">
+                <a [routerLink]="['bands',b.id]">{{ b.name }}</a>
+            </tr>
+        </table>
+    </div>
+</div>

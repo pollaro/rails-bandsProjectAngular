@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BandsService } from '../bands.service'
+import { BandsService } from '../../bands.service'
 
 @Component({
   selector: 'app-bands',

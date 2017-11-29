@@ -1,3 +1,20 @@
-<p>
-  friends works!
-</p>
+<div class="friendContainer">
+    <h3>Friends</h3>
+    <table>
+        <tr>
+            <th>Names</th>
+        </tr>
+        <tr *ngFor="let friend of friends">
+            <td><a [routerLink]="['users',friend.id]">{{ friend.first_name }} {{ friend.last_name }}</a></td>
+        </tr>
+    </table>
+    <form #findFriend="ngForm" (submit)=findFriend()>
+        <label for="friend">Find Friends</label><br>
+        <input type="text" name="friend"
+        required
+        minlength="1"
+        [(ngModel)]="friend.friend"
+        #friend="ngModel"><br>
+        <input type="submit" id="friendSub" value="Find" [disabled]="!findFriend.form.valid"><br>
+    </form>
+</div>

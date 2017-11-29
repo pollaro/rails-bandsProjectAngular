@@ -10,7 +10,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ShowConcertComponent } from './dashboard/show-concert/show-concert.component';
 import { ConcertsService } from './concerts.service'
 import { UsersService } from './users.service';
-import { BandsComponent } from './bands/bands.component'
+import { BandsComponent } from './dashboard/bands/bands.component'
 import { BandsService } from './bands.service';
 import { ConcertsComponent } from './dashboard/concerts/concerts.component';
 import { FriendsComponent } from './dashboard/friends/friends.component'
