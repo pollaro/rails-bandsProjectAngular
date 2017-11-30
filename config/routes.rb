@@ -8,5 +8,7 @@ Rails.application.routes.draw do
     post '/bands/new' => 'bands#new'
 
     get '/concerts' => 'concerts#all'
-    
+    get '/concerts/:id' => 'concerts#show_page'
+    post '/concerts/find' => 'concerts#index'
+
 end

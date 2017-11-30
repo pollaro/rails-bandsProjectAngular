@@ -9,4 +9,15 @@
             </tr>
         </table>
     </div>
+    <div id="wish">
+        <h3>Band Wish List</h3>
+        <table>
+            <tr>
+                <th>Name</th>
+            </tr>
+            <tr *ngFor="let w of wishBands">
+                <td><a [routerLink]="['bands',w.id]">{{ w.name }}</a></td>
+            </tr>
+        </table>
+    </div>
 </div>

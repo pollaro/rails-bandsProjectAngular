@@ -1,5 +1,5 @@
 <div class="col leftCol">
-    <div class="pastShows">
+    <!-- <div class="pastShows">
         <h3>Past Shows Attended</h3>
         <table>
             <tr>
@@ -9,10 +9,10 @@
                 <td><a [routerLink]="['concerts',show.concert.id]">{{ show.concert.date }} {{ show.concert.band.name }} {{ show.concert.city }}</a></td>
             </tr>
         </table>
-    </div>
+    </div> -->
     <fieldset>
         <legend><h2>Find Shows</h2></legend>
-        <form #findShow="ngForm" (submit)="findShow()">
+        <!-- <form #findShow="ngForm"> -->
             <label for="date">Date:</label><br>
             <input type="date"
             name="date"
@@ -32,20 +32,10 @@
             <input type="text"
             name="city"
             [(ngModel)]="show.city"><br>
-            <input type="submit" id="findBut" value="Find" [disabled]="!findShow.form.valid"><br>
-        </form>
+            <button type="button" id="findBut" (click)="findShow()">Find</button>
+            <!-- <input type="submit" id="findBut" value="Find" [disabled]="!findShow.form.valid" (click)="findShow()"><br> -->
+        <!-- </form> -->
     </fieldset>
-    <div id="wish">
-        <h3>Band Wish List</h3>
-        <table>
-            <tr>
-                <th>Name</th>
-            </tr>
-            <tr *ngFor="let b of bands">
-                <td><a [routerLink]="['bands',b.id]">{{ b.name }}</a></td>
-            </tr>
-        </table>
-    </div>
 </div>
 
 <div class="col rightCol">

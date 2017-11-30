@@ -38,6 +38,12 @@ export class DashboardComponent implements OnInit {
     getAllAttended(user){
         this._concertService.getAllAttended(user,
             (response) => { this.shows = response }
-        )}
+    )}
+
+    findShow(){
+        this._concertService.findConcert(this.show,
+            (response) => { console.log(response) }
+        )
+    }
 
 }

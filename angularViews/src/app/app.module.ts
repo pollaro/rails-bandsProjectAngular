@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ShowConcertComponent } from './dashboard/show-concert/show-concert.component';
 import { ConcertsService } from './concerts.service'
 import { UsersService } from './users.service';
 import { BandsComponent } from './dashboard/bands/bands.component'
@@ -20,7 +19,6 @@ import { FriendsComponent } from './dashboard/friends/friends.component'
     AppComponent,
     LoginComponent,
     DashboardComponent,
-    ShowConcertComponent,
     BandsComponent,
     ConcertsComponent,
     FriendsComponent

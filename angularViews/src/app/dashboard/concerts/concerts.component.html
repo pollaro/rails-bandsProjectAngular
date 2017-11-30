@@ -6,9 +6,35 @@
             <th>City</th>
         </tr>
         <tr *ngFor="let c of concerts">
-            <td><a [routerLink]="['concerts',c.id]">{{ c.band.name }}</a></td>
-            <td><a [routerLink]="['concerts',c.id]">{{ c.date | date:"longDate" }}</a></td>
-            <td><a [routerLink]="['concerts',c.id]">{{ c.city }}</a></td>
+            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.band.name }}</a></td>
+            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.date | date:"longDate" }}</a></td>
+            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.city }}</a></td>
         </tr>
     </table>
+    <div [ngClass]="{'concertDetails':openOrClose,'hidden':!openOrClose}" [ngStyle]="{'height.px': 0.87 * windowHeight }">
+        <div class="concertDetailsHdr">
+            <a href="javascript:void(0)" (click)="opener(false)">X</a>
+        </div>
+        <div *ngIf="details" [ngStyle]="{'height.px': 0.87 * windowHeight-30 }"class="concertDetailsCtnt">
+            <h2 *ngIf="details.band.name">{{ details.band.name }}</h2>
+            <h3 *ngIf="details.venue" >{{ details.venue }}</h3>
+            <h3 *ngIf="details.city">{{ details.city }}, {{ details.state }}</h3>
+            <h3 *ngIf="details.date">{{ details.date | date: 'longDate' }}</h3>
+            <br>
+            <fieldset>
+                <legend><h3>Setlist</h3></legend>
+                <table *ngIf="details.songlist">
+                    <tr>
+                        <th>Song Title</th>
+                    </tr>
+                    <tr *ngFor="let s of details.songlist">
+                        <td>{{ s.name }}</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div class="concertMap">
+                
+            </div>
+        </div>
+    </div>
 </div>

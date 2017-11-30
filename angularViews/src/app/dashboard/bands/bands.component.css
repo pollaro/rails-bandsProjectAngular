@@ -1,3 +1,7 @@
+.bandContainer{
+    width: 100%;
+}
+
 .bandList{
     display: inline-block;
     width: 100%;
@@ -8,7 +12,7 @@
 }
 
 .bandList{
-    margin-left: 18%;
+    /*margin-left: 18%;*/
 }
 
 .bandList table, .bandList tr{
@@ -19,4 +23,11 @@
 .bandList a{
     margin-left: 5%;
     margin-top: 1%;
+}
+
+#wish{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: -0.2%;
+    margin-left: 3%;
 }
