@@ -1,23 +1,23 @@
 class ConcertsController < ApplicationController
     require 'date'
     def index
-
+        puts params
         artist = params[:artist]
         cityname = params[:city]
         tempdate = params[:date].split('-')
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
+        @output = Hash.new
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
-        puts response.body
 
         if response["code"].eql? 404
-            @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city], date:params[:date])
+            @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city],date:params[:date])
             # binding.pry
             unless @concert.nil?
                 @concert
-                render 'info.html.erb'
+                render json: @concert.to_json(include: :band)
             else
-                redirect_to '/concerts/new'
+                redirect_to '/concerts'
             end
             # flash[:error] = "Event not found"
             # redirect_to '/dashboard'
@@ -26,18 +26,18 @@ class ConcertsController < ApplicationController
 
             b = Band.find_by(name: params[:artist])
             if b.nil?
-                b = Band.create(name:params[artist])
+                b = Band.create(name:params[:artist])
                 c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"])
-                if c.valid?
-                    # c.save
-                end
+                # if c.valid?
+                #     c.save
+                # end
             else
                 c = Concert.find_by(band: b, date:params[:date], city:params[:city])
                 if c.nil?
                     c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"])
-                    if c.valid?
-                        # c.save
-                    end
+                    # if c.valid?
+                    #     c.save
+                    # end
                 end
             end
 
@@ -51,8 +51,15 @@ class ConcertsController < ApplicationController
             t = testvar["setlist"][0]["eventDate"]
             cdate = Date.strptime(t, "%d-%m-%Y" )
             @eventdate = cdate.strftime("%A, %B %d %Y")
+            @songsout = Array.new
+            @songlist.each do |s|
+                s["song"].each do |s2|
+                    @songsout.push(s2)
+                end
+            end
+            @output = { band: { name: @bandname }, logitude: @longitude, lat: @lat, songlist: @songsout, venue: @venuename, city: @venuecity, state: @venuestate, date: params[:date] }
 
-            render '/concerts/index.html.erb'
+            render json: @output
         end
     end
 
@@ -72,7 +79,6 @@ class ConcertsController < ApplicationController
 
         if response["code"].eql? 404
             render json: @concert.to_json(include: :band)
-
         else
             testvar = JSON.parse(response.body)
 
