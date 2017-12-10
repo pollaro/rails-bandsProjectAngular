@@ -1,7 +1,6 @@
 class ConcertsController < ApplicationController
     require 'date'
     def index
-        puts params
         artist = params[:artist]
         cityname = params[:city]
         tempdate = params[:date].split('-')
@@ -9,6 +8,7 @@ class ConcertsController < ApplicationController
         @output = Hash.new
 
         response = HTTParty.get("https://api.setlist.fm/rest/1.0/search/setlists",:query => { :artistName => artist, :cityName => cityname , :date => date },:headers => { "x-api-key" => "1128bdd4-2942-4334-b4fa-5cf725b57260","Accept" => "application/json" })
+        puts response
 
         if response["code"].eql? 404
             @concert = Concert.find_by(band:Band.find_by(name:params[:artist]), city:params[:city],date:params[:date])
@@ -26,7 +26,7 @@ class ConcertsController < ApplicationController
 
             b = Band.find_by(name: params[:artist])
             if b.nil?
-                b = Band.create(name:params[:artist])
+                # b = Band.create(name:params[:artist])
                 c = Concert.new(band: b, city:testvar["setlist"][0]["venue"]["city"]["name"], date: params[:date], user: current_user, venue:testvar["setlist"][0]["venue"]["name"], state:testvar["setlist"][0]["venue"]["city"]["state"])
                 # if c.valid?
                 #     c.save
@@ -38,6 +38,13 @@ class ConcertsController < ApplicationController
                     # if c.valid?
                     #     c.save
                     # end
+                else
+                    a = Attend.find_by(concert: c, user_id: session[:id])
+                    if a.nil?
+                        attend = true
+                    else
+                        attend = false
+                    end
                 end
             end
 
@@ -57,10 +64,25 @@ class ConcertsController < ApplicationController
                     @songsout.push(s2)
                 end
             end
-            @output = { band: { name: @bandname }, logitude: @longitude, lat: @lat, songlist: @songsout, venue: @venuename, city: @venuecity, state: @venuestate, date: params[:date] }
+            @output = { band: { name: @bandname }, logitude: @longitude, lat: @lat, songlist: @songsout, venue: @venuename, city: @venuecity, state: @venuestate, date: params[:date], attended: attend }
 
             render json: @output
         end
+    end
+
+    def save
+        b = Band.find_by(name: params["band"]["name"])
+        if b.nil?
+            b = Band.create(name: params["band"]['name'])
+        end
+        c = Concert.find_by(band: params['band']['name'], date: params['date'], city: params['city'])
+        if c.nil?
+            c = Concert.new(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
+            if c.valid?
+                c.save
+            end
+        end
+        Attend.create(user_id: session[:id], concert: c)
     end
 
     def new

@@ -8,7 +8,7 @@ export class ConcertsService {
 
     getAllAttended(user,callback){
         this._http.get('http://localhost:3000/users/'+user['id']+'/attended').subscribe(
-            (response) => { callback(response.json()) },
+            (response) => { console.log(response.json()); callback(response.json()) },
             (error) => { console.log(error) }
         )
     }
@@ -28,20 +28,15 @@ export class ConcertsService {
     }
 
     findConcert(req,callback){
-        // let header = new Headers()
-        // let searchParam = new URLSearchParams()
-        // header.set('x-api-key',"1128bdd4-2942-4334-b4fa-5cf725b57260")
-        // header.set('Accept','application/json')
-        // searchParam.set('artistName',req['artist'])
-        // searchParam.set('cityName',req['city'])
-        // searchParam.set('date',req['date'])
-        // let searchOptions = new RequestOptions({headers: header, params: searchParam})
-        // this._http.get('https://api.setlist.fm/rest/1.0/search/setlists',searchOptions).subscribe(
-        //     (response) => { console.log(response.json()) },
-        //     (error) => { console.log(error) }
-        // )
         this._http.post('http://localhost:3000/concerts/find',req).subscribe(
-            (response) => { console.log(response) },
+            (response) => { callback(response.json()) },
+            (error) => { console.log(error) }
+        )
+    }
+
+    saveShow(show,callback){
+        this._http.post('http://localhost:3000/concerts/save',show).subscribe(
+            (response) => { callback(response.json()) },
             (error) => { console.log(error) }
         )
     }

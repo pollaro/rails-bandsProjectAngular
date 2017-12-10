@@ -39,7 +39,7 @@ export class ConcertsComponent implements OnInit {
         )
         this.openOrClose = true
     }
-    
+
     opener(boolean){
         this.openOrClose = boolean
     }

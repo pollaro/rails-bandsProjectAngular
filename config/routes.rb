@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+    root 'pages#index'
+
     post '/' => 'sessions#login'
 
     get '/users/:id/attended' => 'users#concerts_attended'
@@ -10,5 +12,8 @@ Rails.application.routes.draw do
     get '/concerts' => 'concerts#all'
     get '/concerts/:id' => 'concerts#show_page'
     post '/concerts/find' => 'concerts#index'
+    post '/concerts/save' => 'concerts#save'
+
+    get '*unmatchedroute' => 'pages#index'
 
 end

@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
 
     def concerts_attended
-        @concerts = Attend.where(user:current_user)
+        @concerts = Attend.includes(concert: :band).where(user:current_user)
         puts @concerts
-        render json: @concerts
+        render json: @concerts.to_json(:include => { :concert => {:include => :band}})
     end
     #
     # private

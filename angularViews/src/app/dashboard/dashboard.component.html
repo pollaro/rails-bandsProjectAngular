@@ -1,15 +1,19 @@
 <div class="col leftCol">
-    <!-- <div class="pastShows">
+    <div class="pastShows">
         <h3>Past Shows Attended</h3>
         <table>
             <tr>
-                <th>Show Details</th>
+                <th>Band</th>
+                <th>Date</th>
+                <th>City</th>
             </tr>
             <tr *ngFor="let show of shows">
-                <td><a [routerLink]="['concerts',show.concert.id]">{{ show.concert.date }} {{ show.concert.band.name }} {{ show.concert.city }}</a></td>
+                <td><a href="javascript:void(0)" (click)="getShow(show.concert.id)">{{ show.concert.band.name }}</a></td>
+                <td><a href="javascript:void(0)">{{ show.concert.date | date:'longDate' }}</a></td>
+                <td><a href='javascript:void(0)'>{{ show.concert.city }}</a></td>
             </tr>
         </table>
-    </div> -->
+    </div>
     <fieldset>
         <legend><h2>Find Shows</h2></legend>
         <!-- <form #findShow="ngForm"> -->
@@ -36,6 +40,32 @@
             <!-- <input type="submit" id="findBut" value="Find" [disabled]="!findShow.form.valid" (click)="findShow()"><br> -->
         <!-- </form> -->
     </fieldset>
+    <div [ngClass]="{'concertDetails':openOrClose,'hidden':!openOrClose}" [ngStyle]="{'height.px': 0.87 * windowHeight }">
+        <div class="concertDetailsHdr">
+            <a href="javascript:void(0)" (click)="opener(false)">X</a>
+        </div>
+        <div *ngIf="foundShow" [ngStyle]="{'height.px': 0.87 * windowHeight}" class="concertDetailsCtnt">
+            <h2 *ngIf="foundShow.band.name">{{ foundShow.band.name }}</h2><button type="button" id="attendBut" (click)="addShow()">Attended</button>
+            <h3 *ngIf="foundShow.venue" >{{ foundShow.venue }}</h3>
+            <h3 *ngIf="foundShow.city">{{ foundShow.city }}, {{ foundShow.state }}</h3>
+            <h3 *ngIf="foundShow.date">{{ foundShow.date | date: 'longDate' }}</h3>
+            <br>
+            <fieldset>
+                <legend><h3>Setlist</h3></legend>
+                <table *ngIf="foundShow.songlist">
+                    <tr>
+                        <th>Song Title</th>
+                    </tr>
+                    <tr *ngFor="let s of foundShow.songlist">
+                        <td>{{ s.name }}</td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div class="concertMap">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="col rightCol">

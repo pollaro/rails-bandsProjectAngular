@@ -1,12 +1,10 @@
 <div class="header">
     <div class="hdrInfo">
-        &nbsp;
+        <img src="../assets/images/noted_word.png" alt="Noted Logo">
     </div>
     <span class="hdrLinks"><a [routerLink]="['dashboard']">Home</a> <a [routerLink]="['dashboard','bands']">Bands</a> <a [routerLink]="['dashboard','concerts']">Concerts</a> <a [routerLink]="['logout']">Logout</a></span>
 </div>
-<div class="sideBar">
-    <img src="../assets/images/image.jpg" alt="Crowd Logo"> <h1>Music We Love!</h1>
-</div>
+
 <div class="mainContent">
     <router-outlet></router-outlet>
 </div>
