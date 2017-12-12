@@ -495,7 +495,6 @@ module.exports = "<div class=\"col leftCol\">\n    <div class=\"pastShows\">\n  
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__concerts_service__ = __webpack_require__("../../../../../src/app/concerts.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__ = __webpack_require__("../../../../../src/app/dashboard/concerts/concerts.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -505,7 +504,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -540,9 +538,6 @@ var DashboardComponent = (function () {
         console.log(this.current_user);
         this.getAllAttended(this.current_user);
     };
-    DashboardComponent.prototype.AfterViewInit = function () {
-        this._concertsComponent;
-    };
     DashboardComponent.prototype.getAllAttended = function (user) {
         var _this = this;
         this._concertService.getAllAttended(user, function (response) { _this.shows = response; });
@@ -556,9 +551,6 @@ var DashboardComponent = (function () {
         this.attended = this.foundShow['attended'];
         this.openOrClose = true;
     };
-    DashboardComponent.prototype.getShow = function (id) {
-        this._concertsComponent.showConcert(id);
-    };
     DashboardComponent.prototype.addShow = function () {
         this._concertService.saveShow(this.foundShow, function (response) { console.log(response); });
         this.attended = true;
@@ -566,10 +558,6 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.opener = function (boolean) {
         this.openOrClose = boolean;
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__["a" /* ConcertsComponent */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__["a" /* ConcertsComponent */])
-    ], DashboardComponent.prototype, "_concertsComponent", void 0);
     DashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-dashboard',
@@ -809,7 +797,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });
