@@ -10,21 +10,21 @@ export class ConcertsComponent implements OnInit {
 
     windowHeight
     concerts
-    details = new class Detail{
-        band = ''
-        venue = ''
-        city = ''
-        state = ''
-    }
+    details
     openOrClose = false
 
     constructor(private _concertService: ConcertsService){
-        this.openOrClose = false
     }
 
     ngOnInit() {
         this.getAllConcerts()
         this.windowHeight = window.innerHeight
+        this._concertService.concertDetails.subscribe(
+            (response) => { this.details = response }
+        )
+        this._concertService.openDiv.subscribe(
+            (response) => { this.openOrClose = response}
+        )
     }
 
     getAllConcerts(){
@@ -34,10 +34,8 @@ export class ConcertsComponent implements OnInit {
     }
 
     showConcert(id){
-        this._concertService.showConcert(id,
-            (response) => { this.details = response }
-        )
-        this.openOrClose = true
+        this._concertService.showConcert(id)
+        // this.openOrClose = true
     }
 
     opener(boolean){
