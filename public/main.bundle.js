@@ -269,7 +269,7 @@ var ConcertsService = (function () {
         this._http = _http;
         this._router = _router;
         this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
-        this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({});
+        this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' });
         this.openDiv = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.getAllConcerts();
     }
@@ -443,7 +443,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ConcertsComponent = (function () {
     function ConcertsComponent(_concertService) {
         this._concertService = _concertService;
-        this.concerts = [];
+        this.concerts = [{ band: { name: '' }, date: '', city: '' }];
+        this.details = { band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' };
         this.openOrClose = false;
     }
     ConcertsComponent.prototype.ngOnInit = function () {

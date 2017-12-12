@@ -87,7 +87,7 @@ class ConcertsController < ApplicationController
             # end
         end
         render json: c
-        # Attend.create(user_id: session[:id], concert: c)
+        Attend.create(user_id: session[:id], concert: c)
     end
 
     def new

@@ -9,8 +9,8 @@ import { ConcertsService } from '../../concerts.service'
 export class ConcertsComponent implements OnInit {
 
     windowHeight
-    concerts = []
-    details
+    concerts = [{ band: {name: ''}, date: '', city: '' }]
+    details = { band: {name: ''}, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' }
     openOrClose = false
 
     constructor(private _concertService: ConcertsService){

@@ -7,7 +7,7 @@ import { Router } from '@angular/router'
 export class ConcertsService {
 
     allConcerts = new BehaviorSubject([])
-    concertDetails = new BehaviorSubject({})
+    concertDetails = new BehaviorSubject({band: {name: ''}, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: ''})
     openDiv = new BehaviorSubject(false)
     tempDetails
 
