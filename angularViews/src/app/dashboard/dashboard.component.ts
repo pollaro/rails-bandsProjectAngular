@@ -1,16 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConcertsService } from '../concerts.service'
 import { UsersService } from '../users.service'
-import { ConcertsComponent } from './concerts/concerts.component'
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit, AfterViewInit {
-
-    @ViewChild(ConcertsComponent) _concertsComponent: ConcertsComponent
+export class DashboardComponent implements OnInit {
 
     current_user
     foundShow = { band:{name: ''}, venue: '', city: '', state: '', date: '', songlist: [], lat: '', longitude: ''}
@@ -42,9 +39,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.getAllAttended(this.current_user)
     }
 
-    AfterViewInit(){
-        this._concertsComponent
-    }
 
     getAllAttended(user){
         this._concertService.getAllAttended(user,
@@ -59,10 +53,6 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         )
         this.attended = this.foundShow['attended']
         this.openOrClose = true
-    }
-
-    getShow(id){
-        this._concertsComponent.showConcert(id)
     }
 
     addShow(){
