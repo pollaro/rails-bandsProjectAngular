@@ -1,5 +1,6 @@
 class ConcertsController < ApplicationController
     require 'date'
+    require 'pp'
     def index
         artist = params[:artist]
         cityname = params[:city]
@@ -72,17 +73,21 @@ class ConcertsController < ApplicationController
 
     def save
         b = Band.find_by(name: params["band"]["name"])
+        pp b
         if b.nil?
             b = Band.create(name: params["band"]['name'])
         end
         c = Concert.find_by(band: params['band']['name'], date: params['date'], city: params['city'])
         if c.nil?
-            c = Concert.new(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
-            if c.valid?
-                c.save
-            end
+            c = Concert.create(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
+            pp c
+            # puts c.valid?
+            # if c.valid?
+            #     c.save
+            # end
         end
-        Attend.create(user_id: session[:id], concert: c)
+        render json: c
+        # Attend.create(user_id: session[:id], concert: c)
     end
 
     def new

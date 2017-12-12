@@ -9,7 +9,7 @@ import { ConcertsService } from '../../concerts.service'
 export class ConcertsComponent implements OnInit {
 
     windowHeight
-    concerts
+    concerts = []
     details
     openOrClose = false
 
@@ -17,7 +17,7 @@ export class ConcertsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getAllConcerts()
+        // this.getAllConcerts()
         this.windowHeight = window.innerHeight
         this._concertService.concertDetails.subscribe(
             (response) => { this.details = response }
@@ -25,13 +25,16 @@ export class ConcertsComponent implements OnInit {
         this._concertService.openDiv.subscribe(
             (response) => { this.openOrClose = response}
         )
-    }
-
-    getAllConcerts(){
-        this._concertService.getAllConcerts(
-            (response) => { console.log(response); this.concerts = response }
+        this._concertService.allConcerts.subscribe(
+            (response) => { this.concerts = response }
         )
     }
+
+    // getAllConcerts(){
+    //     this._concertService.allConcerts.subscribe(
+    //         (response) => { this.concerts = response }
+    //     )
+    // }
 
     showConcert(id){
         this._concertService.showConcert(id)
