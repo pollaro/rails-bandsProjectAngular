@@ -49,10 +49,11 @@ export class DashboardComponent implements OnInit {
         this._concertService.findConcert(this.show,
             (response) => { this.foundShow = response
                 console.log(response)
+                this.openOrClose = true
             }
         )
-        this.attended = this.foundShow['attended']
-        this.openOrClose = true
+        // this.attended = this.foundShow['attended']
+        // this.openOrClose = true
     }
 
     addShow(){

@@ -249,6 +249,8 @@ var BandsService = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ConcertsService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__("../../../http/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__ = __webpack_require__("../../../../rxjs/_esm5/BehaviorSubject.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__dashboard_concerts_concerts_component__ = __webpack_require__("../../../../../src/app/dashboard/concerts/concerts.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -260,9 +262,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
 var ConcertsService = (function () {
-    function ConcertsService(_http) {
+    function ConcertsService(_http, _concertsComponent) {
         this._http = _http;
+        this._concertsComponent = _concertsComponent;
+        this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({});
     }
     ConcertsService.prototype.getAllAttended = function (user, callback) {
         this._http.get('http://localhost:3000/users/' + user['id'] + '/attended').subscribe(function (response) { console.log(response.json()); callback(response.json()); }, function (error) { console.log(error); });
@@ -271,17 +277,31 @@ var ConcertsService = (function () {
         this._http.get('http://localhost:3000/concerts').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.showConcert = function (id, callback) {
-        this._http.get('http://localhost:3000/concerts/' + id).subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        var _this = this;
+        this._http.get('http://localhost:3000/concerts/' + id).subscribe(function (response) {
+            _this.concertDetails.next(response.json());
+            callback();
+        }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.findConcert = function (req, callback) {
-        this._http.post('http://localhost:3000/concerts/find', req).subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        var _this = this;
+        this._http.post('http://localhost:3000/concerts/find', req).subscribe(function (response) {
+            _this.tempDetails = response.json();
+            if (_this.tempDetails['attended']) {
+                _this.concertDetails.next(response.json());
+                _this._concertsComponent.openOrClose = true;
+            }
+            else {
+                callback(response.json());
+            }
+        }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.saveShow = function (show, callback) {
         this._http.post('http://localhost:3000/concerts/save', show).subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Http */], __WEBPACK_IMPORTED_MODULE_3__dashboard_concerts_concerts_component__["a" /* ConcertsComponent */]])
     ], ConcertsService);
     return ConcertsService;
 }());
@@ -419,21 +439,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ConcertsComponent = (function () {
     function ConcertsComponent(_concertService) {
         this._concertService = _concertService;
-        this.details = new (function () {
-            function Detail() {
-                this.band = '';
-                this.venue = '';
-                this.city = '';
-                this.state = '';
-            }
-            return Detail;
-        }());
         this.openOrClose = false;
         this.openOrClose = false;
     }
     ConcertsComponent.prototype.ngOnInit = function () {
+        var _this = this;
         this.getAllConcerts();
         this.windowHeight = window.innerHeight;
+        this._concertService.concertDetails.subscribe(function (response) { _this.details = response; });
     };
     ConcertsComponent.prototype.getAllConcerts = function () {
         var _this = this;
@@ -441,8 +454,8 @@ var ConcertsComponent = (function () {
     };
     ConcertsComponent.prototype.showConcert = function (id) {
         var _this = this;
-        this._concertService.showConcert(id, function (response) { _this.details = response; });
-        this.openOrClose = true;
+        this._concertService.showConcert(id, function (response) { _this.openOrClose = true; });
+        // this.openOrClose = true
     };
     ConcertsComponent.prototype.opener = function (boolean) {
         this.openOrClose = boolean;
@@ -495,7 +508,6 @@ module.exports = "<div class=\"col leftCol\">\n    <div class=\"pastShows\">\n  
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__concerts_service__ = __webpack_require__("../../../../../src/app/concerts.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__ = __webpack_require__("../../../../../src/app/dashboard/concerts/concerts.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -505,7 +517,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-
 
 
 
@@ -540,9 +551,6 @@ var DashboardComponent = (function () {
         console.log(this.current_user);
         this.getAllAttended(this.current_user);
     };
-    DashboardComponent.prototype.AfterViewInit = function () {
-        this._concertsComponent;
-    };
     DashboardComponent.prototype.getAllAttended = function (user) {
         var _this = this;
         this._concertService.getAllAttended(user, function (response) { _this.shows = response; });
@@ -552,12 +560,10 @@ var DashboardComponent = (function () {
         this._concertService.findConcert(this.show, function (response) {
             _this.foundShow = response;
             console.log(response);
+            _this.openOrClose = true;
         });
-        this.attended = this.foundShow['attended'];
-        this.openOrClose = true;
-    };
-    DashboardComponent.prototype.getShow = function (id) {
-        this._concertsComponent.showConcert(id);
+        // this.attended = this.foundShow['attended']
+        // this.openOrClose = true
     };
     DashboardComponent.prototype.addShow = function () {
         this._concertService.saveShow(this.foundShow, function (response) { console.log(response); });
@@ -566,10 +572,6 @@ var DashboardComponent = (function () {
     DashboardComponent.prototype.opener = function (boolean) {
         this.openOrClose = boolean;
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_9" /* ViewChild */])(__WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__["a" /* ConcertsComponent */]),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_3__concerts_concerts_component__["a" /* ConcertsComponent */])
-    ], DashboardComponent.prototype, "_concertsComponent", void 0);
     DashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'app-dashboard',
@@ -809,7 +811,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 if (__WEBPACK_IMPORTED_MODULE_3__environments_environment__["a" /* environment */].production) {
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_14" /* enableProdMode */])();
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_13" /* enableProdMode */])();
 }
 Object(__WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_2__app_app_module__["a" /* AppModule */])
     .catch(function (err) { return console.log(err); });
