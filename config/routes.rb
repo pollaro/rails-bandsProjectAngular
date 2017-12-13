@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root 'pages#index'
 
     post '/' => 'sessions#login'
+    post '/new' => 'sessions#register'
 
     get '/users/:id/attended' => 'users#concerts_attended'
 

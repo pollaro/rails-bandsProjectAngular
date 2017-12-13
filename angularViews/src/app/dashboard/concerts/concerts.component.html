@@ -6,9 +6,9 @@
             <th>City</th>
         </tr>
         <tr *ngFor="let c of concerts">
-            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.band.name }}</a></td>
-            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.date | date:"longDate" }}</a></td>
-            <td><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.city }}</a></td>
+            <td *ngIf="c"><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.band.name }}</a></td>
+            <td *ngIf="c"><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.date | date:"longDate" }}</a></td>
+            <td *ngIf="c"><a href="javascript:void(0)" (click)="showConcert(c.id)">{{ c.city }}</a></td>
         </tr>
     </table>
     <div [ngClass]="{'concertDetails':openOrClose,'hidden':!openOrClose}" [ngStyle]="{'height.px': 0.87 * windowHeight }">
@@ -33,7 +33,7 @@
                 </table>
             </fieldset>
             <div class="concertMap">
-                
+
             </div>
         </div>
     </div>

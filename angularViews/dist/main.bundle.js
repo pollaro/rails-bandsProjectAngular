@@ -268,14 +268,13 @@ var ConcertsService = (function () {
     function ConcertsService(_http, _router) {
         this._http = _http;
         this._router = _router;
-        this.addConcert = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '' });
-        this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([{ band: { name: '' }, date: '', city: '' }]);
+        this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
         this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' });
         this.openDiv = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.getAllConcerts();
     }
     ConcertsService.prototype.getAllAttended = function (user, callback) {
-        this._http.get('http://localhost:3000/users/' + user['id'] + '/attended').subscribe(function (response) { console.log(response.json()); callback(response.json()); }, function (error) { console.log(error); });
+        this._http.get('http://localhost:3000/users/' + user['id'] + '/attended').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.getAllConcerts = function () {
         var _this = this;
@@ -304,9 +303,8 @@ var ConcertsService = (function () {
     ConcertsService.prototype.saveShow = function (show, callback) {
         var _this = this;
         this._http.post('http://localhost:3000/concerts/save', show).subscribe(function (response) {
-            console.log(response.json());
-            _this.addConcert.next(response.json());
             callback(response.json());
+            _this.getAllConcerts();
         }, function (error) { console.log(error); });
     };
     ConcertsService = __decorate([
@@ -424,7 +422,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/concerts/concerts.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"allConcertsContainer\">\n    <table>\n        <tr>\n            <th>Band</th>\n            <th>Date</th>\n            <th>City</th>\n        </tr>\n        <tr *ngFor=\"let c of concerts\">\n            <td><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.band.name }}</a></td>\n            <td><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.date | date:\"longDate\" }}</a></td>\n            <td><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.city }}</a></td>\n        </tr>\n    </table>\n    <div [ngClass]=\"{'concertDetails':openOrClose,'hidden':!openOrClose}\" [ngStyle]=\"{'height.px': 0.87 * windowHeight }\">\n        <div class=\"concertDetailsHdr\">\n            <a href=\"javascript:void(0)\" (click)=\"opener(false)\">X</a>\n        </div>\n        <div *ngIf=\"details\" [ngStyle]=\"{'height.px': 0.87 * windowHeight-30 }\"class=\"concertDetailsCtnt\">\n            <h2 *ngIf=\"details.band.name\">{{ details.band.name }}</h2>\n            <h3 *ngIf=\"details.venue\" >{{ details.venue }}</h3>\n            <h3 *ngIf=\"details.city\">{{ details.city }}, {{ details.state }}</h3>\n            <h3 *ngIf=\"details.date\">{{ details.date | date: 'longDate' }}</h3>\n            <br>\n            <fieldset>\n                <legend><h3>Setlist</h3></legend>\n                <table *ngIf=\"details.songlist\">\n                    <tr>\n                        <th>Song Title</th>\n                    </tr>\n                    <tr *ngFor=\"let s of details.songlist\">\n                        <td>{{ s.name }}</td>\n                    </tr>\n                </table>\n            </fieldset>\n            <div class=\"concertMap\">\n                \n            </div>\n        </div>\n    </div>\n</div>\n"
+module.exports = "<div class=\"allConcertsContainer\">\n    <table>\n        <tr>\n            <th>Band</th>\n            <th>Date</th>\n            <th>City</th>\n        </tr>\n        <tr *ngFor=\"let c of concerts\">\n            <td *ngIf=\"c\"><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.band.name }}</a></td>\n            <td *ngIf=\"c\"><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.date | date:\"longDate\" }}</a></td>\n            <td *ngIf=\"c\"><a href=\"javascript:void(0)\" (click)=\"showConcert(c.id)\">{{ c.city }}</a></td>\n        </tr>\n    </table>\n    <div [ngClass]=\"{'concertDetails':openOrClose,'hidden':!openOrClose}\" [ngStyle]=\"{'height.px': 0.87 * windowHeight }\">\n        <div class=\"concertDetailsHdr\">\n            <a href=\"javascript:void(0)\" (click)=\"opener(false)\">X</a>\n        </div>\n        <div *ngIf=\"details\" [ngStyle]=\"{'height.px': 0.87 * windowHeight-30 }\"class=\"concertDetailsCtnt\">\n            <h2 *ngIf=\"details.band.name\">{{ details.band.name }}</h2>\n            <h3 *ngIf=\"details.venue\" >{{ details.venue }}</h3>\n            <h3 *ngIf=\"details.city\">{{ details.city }}, {{ details.state }}</h3>\n            <h3 *ngIf=\"details.date\">{{ details.date | date: 'longDate' }}</h3>\n            <br>\n            <fieldset>\n                <legend><h3>Setlist</h3></legend>\n                <table *ngIf=\"details.songlist\">\n                    <tr>\n                        <th>Song Title</th>\n                    </tr>\n                    <tr *ngFor=\"let s of details.songlist\">\n                        <td>{{ s.name }}</td>\n                    </tr>\n                </table>\n            </fieldset>\n            <div class=\"concertMap\">\n\n            </div>\n        </div>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -449,8 +447,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ConcertsComponent = (function () {
     function ConcertsComponent(_concertService) {
         this._concertService = _concertService;
-        this.concerts = [{ band: { name: '' }, date: '', city: '' }];
-        this.details = { band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' };
+        this.concerts = [];
+        this.details = {};
         this.openOrClose = false;
     }
     ConcertsComponent.prototype.ngOnInit = function () {
@@ -459,7 +457,6 @@ var ConcertsComponent = (function () {
         this._concertService.concertDetails.subscribe(function (response) { _this.details = response; });
         this._concertService.openDiv.subscribe(function (response) { _this.openOrClose = response; });
         this._concertService.allConcerts.subscribe(function (response) { _this.concerts = response; });
-        this._concertService.addConcert.subscribe(function (response) { _this.concerts.unshift(response); });
     };
     ConcertsComponent.prototype.showConcert = function (id) {
         this._concertService.showConcert(id);
@@ -503,7 +500,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"col leftCol\">\n    <div class=\"pastShows\">\n        <h3>Past Shows Attended</h3>\n        <table>\n            <tr>\n                <th>Band</th>\n                <th>Date</th>\n                <th>City</th>\n            </tr>\n            <tr *ngFor=\"let show of shows\">\n                <td><a href=\"javascript:void(0)\" (click)=\"getShow(show.concert.id)\">{{ show.concert.band.name }}</a></td>\n                <td><a href=\"javascript:void(0)\">{{ show.concert.date | date:'longDate' }}</a></td>\n                <td><a href='javascript:void(0)'>{{ show.concert.city }}</a></td>\n            </tr>\n        </table>\n    </div>\n    <fieldset>\n        <legend><h2>Find Shows</h2></legend>\n        <!-- <form #findShow=\"ngForm\"> -->\n            <label for=\"date\">Date:</label><br>\n            <input type=\"date\"\n            name=\"date\"\n            required\n            [(ngModel)]=\"show.date\"\n            #date=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"date.valid || date.pristine\">Date must be filled in</span><br>\n            <label for=\"artist\">Artist:</label><br>\n            <input type=\"text\"\n            name=\"artist\"\n            required\n            minlenght=\"1\"\n            [(ngModel)]=\"show.artist\"\n            #artist=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"artist.valid || artist.pristine\">Artist must be filled in</span><br>\n            <label for=\"City\">City:</label><br>\n            <input type=\"text\"\n            name=\"city\"\n            [(ngModel)]=\"show.city\"><br>\n            <button type=\"button\" id=\"findBut\" (click)=\"findShow()\">Find</button>\n            <!-- <input type=\"submit\" id=\"findBut\" value=\"Find\" [disabled]=\"!findShow.form.valid\" (click)=\"findShow()\"><br> -->\n        <!-- </form> -->\n    </fieldset>\n    <div [ngClass]=\"{'concertDetails':openOrClose,'hidden':!openOrClose}\" [ngStyle]=\"{'height.px': 0.87 * windowHeight }\">\n        <div class=\"concertDetailsHdr\">\n            <a href=\"javascript:void(0)\" (click)=\"opener(false)\">X</a>\n        </div>\n        <div *ngIf=\"foundShow\" [ngStyle]=\"{'height.px': 0.87 * windowHeight}\" class=\"concertDetailsCtnt\">\n            <h2 *ngIf=\"foundShow.band.name\">{{ foundShow.band.name }}</h2><button type=\"button\" id=\"attendBut\" (click)=\"addShow()\">Attended</button>\n            <h3 *ngIf=\"foundShow.venue\" >{{ foundShow.venue }}</h3>\n            <h3 *ngIf=\"foundShow.city\">{{ foundShow.city }}, {{ foundShow.state }}</h3>\n            <h3 *ngIf=\"foundShow.date\">{{ foundShow.date | date: 'longDate' }}</h3>\n            <br>\n            <fieldset>\n                <legend><h3>Setlist</h3></legend>\n                <table *ngIf=\"foundShow.songlist\">\n                    <tr>\n                        <th>Song Title</th>\n                    </tr>\n                    <tr *ngFor=\"let s of foundShow.songlist\">\n                        <td>{{ s.name }}</td>\n                    </tr>\n                </table>\n            </fieldset>\n            <div class=\"concertMap\">\n\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"col rightCol\">\n    <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<div class=\"col leftCol\">\n    <div class=\"pastShows\">\n        <h3>Past Shows Attended</h3>\n        <table>\n            <tr>\n                <th>Band</th>\n                <th>Date</th>\n                <th>City</th>\n            </tr>\n            <tr *ngFor=\"let show of shows\">\n                <td *ngIf=\"show\"><a href=\"javascript:void(0)\" (click)=\"getShow(show.concert.id)\">{{ show.concert.band.name }}</a></td>\n                <td *ngIf=\"show\"><a href=\"javascript:void(0)\">{{ show.concert.date | date:'longDate' }}</a></td>\n                <td *ngIf=\"show\"><a href='javascript:void(0)'>{{ show.concert.city }}</a></td>\n            </tr>\n        </table>\n    </div>\n    <fieldset>\n        <legend><h2>Find Shows</h2></legend>\n        <!-- <form #findShow=\"ngForm\"> -->\n            <label for=\"date\">Date:</label><br>\n            <input type=\"date\"\n            name=\"date\"\n            required\n            [(ngModel)]=\"show.date\"\n            #date=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"date.valid || date.pristine\">Date must be filled in</span><br>\n            <label for=\"artist\">Artist:</label><br>\n            <input type=\"text\"\n            name=\"artist\"\n            required\n            minlenght=\"1\"\n            [(ngModel)]=\"show.artist\"\n            #artist=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"artist.valid || artist.pristine\">Artist must be filled in</span><br>\n            <label for=\"City\">City:</label><br>\n            <input type=\"text\"\n            name=\"city\"\n            [(ngModel)]=\"show.city\"><br>\n            <button type=\"button\" id=\"findBut\" (click)=\"findShow()\">Find</button>\n            <!-- <input type=\"submit\" id=\"findBut\" value=\"Find\" [disabled]=\"!findShow.form.valid\" (click)=\"findShow()\"><br> -->\n        <!-- </form> -->\n    </fieldset>\n    <div [ngClass]=\"{'concertDetails':openOrClose,'hidden':!openOrClose}\" [ngStyle]=\"{'height.px': 0.87 * windowHeight }\">\n        <div class=\"concertDetailsHdr\">\n            <a href=\"javascript:void(0)\" (click)=\"opener(false)\">X</a>\n        </div>\n        <div *ngIf=\"foundShow\" [ngStyle]=\"{'height.px': 0.87 * windowHeight}\" class=\"concertDetailsCtnt\">\n            <h2 *ngIf=\"foundShow.band.name\">{{ foundShow.band.name }}</h2><button type=\"button\" id=\"attendBut\" (click)=\"addShow()\">Attended</button>\n            <h3 *ngIf=\"foundShow.venue\" >{{ foundShow.venue }}</h3>\n            <h3 *ngIf=\"foundShow.city\">{{ foundShow.city }}, {{ foundShow.state }}</h3>\n            <h3 *ngIf=\"foundShow.date\">{{ foundShow.date | date: 'longDate' }}</h3>\n            <br>\n            <fieldset>\n                <legend><h3>Setlist</h3></legend>\n                <table *ngIf=\"foundShow.songlist\">\n                    <tr>\n                        <th>Song Title</th>\n                    </tr>\n                    <tr *ngFor=\"let s of foundShow.songlist\">\n                        <td>{{ s.name }}</td>\n                    </tr>\n                </table>\n            </fieldset>\n            <div class=\"concertMap\">\n\n            </div>\n        </div>\n    </div>\n</div>\n\n<div class=\"col rightCol\">\n    <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -534,21 +531,9 @@ var DashboardComponent = (function () {
         this.foundShow = { band: { name: '' }, venue: '', city: '', state: '', date: '', songlist: [], lat: '', longitude: '' };
         this.openOrClose = false;
         this.attended = false;
-        this.show = new (function () {
-            function Concert() {
-                this.date = '';
-                this.artist = '';
-                this.city = '';
-            }
-            return Concert;
-        }());
-        this.friend = new (function () {
-            function Friendship() {
-                this.friend = '';
-            }
-            return Friendship;
-        }());
-        this.shows = [];
+        this.show = { concert: { date: '', band: { name: '' }, city: '' } };
+        this.friend = { friend: '' };
+        this.shows = [{ concert: { band: { name: '' }, city: '', date: '' } }];
         this.bands = [];
         this.friends = [];
         this.openOrClose = false;
@@ -572,7 +557,10 @@ var DashboardComponent = (function () {
     };
     DashboardComponent.prototype.addShow = function () {
         var _this = this;
-        this._concertService.saveShow(this.foundShow, function (response) { _this.shows.unshift(response); });
+        this._concertService.saveShow(this.foundShow, function (response) {
+            console.log(response);
+            _this.shows.unshift(response);
+        });
         this.attended = true;
     };
     DashboardComponent.prototype.opener = function (boolean) {

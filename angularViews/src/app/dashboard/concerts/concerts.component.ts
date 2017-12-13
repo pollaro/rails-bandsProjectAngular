@@ -9,8 +9,8 @@ import { ConcertsService } from '../../concerts.service'
 export class ConcertsComponent implements OnInit {
 
     windowHeight
-    concerts = [{ band: {name: ''}, date: '', city: '' }]
-    details = { band: {name: ''}, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' }
+    concerts = []
+    details = {}
     openOrClose = false
 
     constructor(private _concertService: ConcertsService){
@@ -26,9 +26,6 @@ export class ConcertsComponent implements OnInit {
         )
         this._concertService.allConcerts.subscribe(
             (response) => { this.concerts = response }
-        )
-        this._concertService.addConcert.subscribe(
-            (response) => { this.concerts.unshift(response) }
         )
     }
 

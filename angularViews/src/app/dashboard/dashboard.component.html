@@ -8,9 +8,9 @@
                 <th>City</th>
             </tr>
             <tr *ngFor="let show of shows">
-                <td><a href="javascript:void(0)" (click)="getShow(show.concert.id)">{{ show.concert.band.name }}</a></td>
-                <td><a href="javascript:void(0)">{{ show.concert.date | date:'longDate' }}</a></td>
-                <td><a href='javascript:void(0)'>{{ show.concert.city }}</a></td>
+                <td *ngIf="show"><a href="javascript:void(0)" (click)="getShow(show.concert.id)">{{ show.concert.band.name }}</a></td>
+                <td *ngIf="show"><a href="javascript:void(0)">{{ show.concert.date | date:'longDate' }}</a></td>
+                <td *ngIf="show"><a href='javascript:void(0)'>{{ show.concert.city }}</a></td>
             </tr>
         </table>
     </div>

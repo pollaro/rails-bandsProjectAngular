@@ -6,8 +6,7 @@ import { Router } from '@angular/router'
 @Injectable()
 export class ConcertsService {
 
-    addConcert = new BehaviorSubject({band: {name: ''}, date: '', city: ''})
-    allConcerts = new BehaviorSubject([{band: {name: ''}, date: '', city: ''}])
+    allConcerts = new BehaviorSubject([])
     concertDetails = new BehaviorSubject({band: {name: ''}, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: ''})
     openDiv = new BehaviorSubject(false)
     tempDetails
@@ -18,7 +17,7 @@ export class ConcertsService {
 
     getAllAttended(user,callback){
         this._http.get('http://localhost:3000/users/'+user['id']+'/attended').subscribe(
-            (response) => { console.log(response.json()); callback(response.json()) },
+            (response) => { callback(response.json()) },
             (error) => { console.log(error) }
         )
     }
@@ -55,8 +54,9 @@ export class ConcertsService {
 
     saveShow(show,callback){
         this._http.post('http://localhost:3000/concerts/save',show).subscribe(
-            (response) => { console.log(response.json()); this.addConcert.next(response.json());
-                callback(response.json()) },
+            (response) => { callback(response.json())
+                this.getAllConcerts()
+            },
             (error) => { console.log(error) }
         )
     }

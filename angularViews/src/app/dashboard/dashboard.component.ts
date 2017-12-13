@@ -14,20 +14,11 @@ export class DashboardComponent implements OnInit {
     openOrClose = false
     attended = false
 
-    show = new class Concert{
-        date = ''
-        artist = ''
-        city = ''
-    }
-
-    friend = new class Friendship{
-        friend = ''
-    }
-
-    shows = []
+    show = {concert: {date: '', band: {name: ''}, city: ''}}
+    friend = {friend: ''}
+    shows = [{concert: { band: {name: ''}, city: '', date: ''}}]
     bands = []
     friends = []
-
 
     constructor(private _concertService: ConcertsService, private _userService: UsersService) {
         this.openOrClose = false
@@ -43,7 +34,8 @@ export class DashboardComponent implements OnInit {
     getAllAttended(user){
         this._concertService.getAllAttended(user,
             (response) => { this.shows = response }
-    )}
+        )
+    }
 
     findShow(){
         this._concertService.findConcert(this.show,
@@ -56,7 +48,9 @@ export class DashboardComponent implements OnInit {
 
     addShow(){
         this._concertService.saveShow(this.foundShow,
-            (response) => { this.shows.unshift(response) }
+            (response) => { console.log(response)
+                this.shows.unshift(response)
+            }
         )
         this.attended = true
     }

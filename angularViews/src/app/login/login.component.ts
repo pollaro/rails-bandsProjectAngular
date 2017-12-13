@@ -9,23 +9,19 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
 
-    newUser = class User{
-        firstName = ''
-        lastName = ''
-        email = ''
-        city = ''
-        state = ''
-        password = ''
-    }
-
-    logUser = new class LoginUser{
-        logEmail = ''
-        logPass = ''
-    }
+    newUser = {}
+    logUser = {}
 
     constructor(private _userService: UsersService, private _router: Router){}
 
     ngOnInit() {
+    }
+
+    regNewUser(){
+        console.log(this.newUser)
+        this._userService.regUser(this.newUser,
+            (response) => { this._router.navigate(['dashboard'])}
+        )
     }
 
     loginUser(){

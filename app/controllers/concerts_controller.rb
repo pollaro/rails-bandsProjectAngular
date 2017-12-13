@@ -86,8 +86,9 @@ class ConcertsController < ApplicationController
             #     c.save
             # end
         end
-        render json: c.to_json(include: :band)
         Attend.create(user_id: session[:id], concert: c)
+        a = Attend.last
+        render json: a.to_json(:include => { :concert => {:include => :band}})
     end
 
     def new
