@@ -268,7 +268,8 @@ var ConcertsService = (function () {
     function ConcertsService(_http, _router) {
         this._http = _http;
         this._router = _router;
-        this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
+        this.addConcert = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '' });
+        this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([{ band: { name: '' }, date: '', city: '' }]);
         this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' });
         this.openDiv = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.getAllConcerts();
@@ -301,7 +302,12 @@ var ConcertsService = (function () {
         }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.saveShow = function (show, callback) {
-        this._http.post('http://localhost:3000/concerts/save', show).subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        var _this = this;
+        this._http.post('http://localhost:3000/concerts/save', show).subscribe(function (response) {
+            console.log(response.json());
+            _this.addConcert.next(response.json());
+            callback(response.json());
+        }, function (error) { console.log(error); });
     };
     ConcertsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -449,20 +455,14 @@ var ConcertsComponent = (function () {
     }
     ConcertsComponent.prototype.ngOnInit = function () {
         var _this = this;
-        // this.getAllConcerts()
         this.windowHeight = window.innerHeight;
         this._concertService.concertDetails.subscribe(function (response) { _this.details = response; });
         this._concertService.openDiv.subscribe(function (response) { _this.openOrClose = response; });
         this._concertService.allConcerts.subscribe(function (response) { _this.concerts = response; });
+        this._concertService.addConcert.subscribe(function (response) { _this.concerts.unshift(response); });
     };
-    // getAllConcerts(){
-    //     this._concertService.allConcerts.subscribe(
-    //         (response) => { this.concerts = response }
-    //     )
-    // }
     ConcertsComponent.prototype.showConcert = function (id) {
         this._concertService.showConcert(id);
-        // this.openOrClose = true
     };
     ConcertsComponent.prototype.opener = function (boolean) {
         this.openOrClose = boolean;
@@ -569,11 +569,10 @@ var DashboardComponent = (function () {
             console.log(response);
             _this.openOrClose = true;
         });
-        // this.attended = this.foundShow['attended']
-        // this.openOrClose = true
     };
     DashboardComponent.prototype.addShow = function () {
-        this._concertService.saveShow(this.foundShow, function (response) { console.log(response); });
+        var _this = this;
+        this._concertService.saveShow(this.foundShow, function (response) { _this.shows.unshift(response); });
         this.attended = true;
     };
     DashboardComponent.prototype.opener = function (boolean) {

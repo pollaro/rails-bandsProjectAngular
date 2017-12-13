@@ -17,7 +17,6 @@ export class ConcertsComponent implements OnInit {
     }
 
     ngOnInit() {
-        // this.getAllConcerts()
         this.windowHeight = window.innerHeight
         this._concertService.concertDetails.subscribe(
             (response) => { this.details = response }
@@ -28,17 +27,13 @@ export class ConcertsComponent implements OnInit {
         this._concertService.allConcerts.subscribe(
             (response) => { this.concerts = response }
         )
+        this._concertService.addConcert.subscribe(
+            (response) => { this.concerts.unshift(response) }
+        )
     }
-
-    // getAllConcerts(){
-    //     this._concertService.allConcerts.subscribe(
-    //         (response) => { this.concerts = response }
-    //     )
-    // }
 
     showConcert(id){
         this._concertService.showConcert(id)
-        // this.openOrClose = true
     }
 
     opener(boolean){

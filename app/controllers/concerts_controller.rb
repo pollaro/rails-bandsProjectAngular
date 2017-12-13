@@ -80,13 +80,13 @@ class ConcertsController < ApplicationController
         c = Concert.find_by(band: params['band']['name'], date: params['date'], city: params['city'])
         if c.nil?
             c = Concert.create(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
-            pp c
+            # pp c
             # puts c.valid?
             # if c.valid?
             #     c.save
             # end
         end
-        render json: c
+        render json: c.to_json(include: :band)
         Attend.create(user_id: session[:id], concert: c)
     end
 

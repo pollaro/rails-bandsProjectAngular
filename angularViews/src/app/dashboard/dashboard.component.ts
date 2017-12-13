@@ -52,13 +52,11 @@ export class DashboardComponent implements OnInit {
                 this.openOrClose = true
             }
         )
-        // this.attended = this.foundShow['attended']
-        // this.openOrClose = true
     }
 
     addShow(){
         this._concertService.saveShow(this.foundShow,
-            (response) => { console.log(response) }
+            (response) => { this.shows.unshift(response) }
         )
         this.attended = true
     }
