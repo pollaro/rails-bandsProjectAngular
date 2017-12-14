@@ -78,7 +78,7 @@ fieldset input{
     border-bottom: solid thin black;
 }
 
-#attendBut{
+.didnt{
     display: inline-block;
     float: right;
     margin-right: 6%;
@@ -91,6 +91,23 @@ fieldset input{
     padding-bottom: 1.2%;
     background-color: #21B4B1;
     color: white;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.went{
+    display: inline-block;
+    float: right;
+    margin-right: 6%;
+    max-width: 111px;
+    min-width: 90px;
+    height: 2rem;
+    border: thin solid #21B4B1;
+    border-radius: 4px;
+    padding-top: 1.2%;
+    padding-bottom: 1.2%;
+    background-color: white;
+    color: #21B4B1;
     font-size: 1rem;
     box-sizing: border-box;
 }

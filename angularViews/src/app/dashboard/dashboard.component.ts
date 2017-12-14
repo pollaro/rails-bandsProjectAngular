@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
     foundShow = { band:{name: ''}, venue: '', city: '', state: '', date: '', songlist: [], lat: '', longitude: ''}
     openOrClose = false
     attended = false
+    status = "Didn't go"
 
     show = {concert: {date: '', band: {name: ''}, city: ''}}
     friend = {friend: ''}
@@ -53,6 +54,7 @@ export class DashboardComponent implements OnInit {
             }
         )
         this.attended = true
+        this.status = 'I went!'
     }
 
     opener(boolean){

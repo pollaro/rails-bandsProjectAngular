@@ -45,7 +45,7 @@
             <a href="javascript:void(0)" (click)="opener(false)">X</a>
         </div>
         <div *ngIf="foundShow" [ngStyle]="{'height.px': 0.87 * windowHeight}" class="concertDetailsCtnt">
-            <h2 *ngIf="foundShow.band.name">{{ foundShow.band.name }}</h2><button type="button" id="attendBut" (click)="addShow()">Attended</button>
+            <h2 *ngIf="foundShow.band.name">{{ foundShow.band.name }}</h2><button type="button" id="attendBut" [ngClass]="{'went':attended===true,'didnt':attended===false}" (click)="addShow()">{{status}}</button>
             <h3 *ngIf="foundShow.venue" >{{ foundShow.venue }}</h3>
             <h3 *ngIf="foundShow.city">{{ foundShow.city }}, {{ foundShow.state }}</h3>
             <h3 *ngIf="foundShow.date">{{ foundShow.date | date: 'longDate' }}</h3>

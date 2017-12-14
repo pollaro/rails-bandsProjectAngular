@@ -409,7 +409,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".allConcertsContainer{\n    width: 100%;\n    margin-left: 0;\n}\n\ntable, tr{\n    width: 100%;\n    font-size: 1.2rem;\n}\n\n.concertDetails{\n    z-index: 100;\n    position: fixed;\n    bottom: 0px;\n    right: 10px;\n    display: inline-block;\n    border: solid thin black;\n    width: 45%;\n    /*overflow-y: scroll;*/\n    background-color: white;\n    box-shadow: -7px 2px 6px 0px gray;\n}\n\n.hidden{\n    display: none;\n}\n\n.concertDetailsHdr{\n    width: 100%;\n    height: 30px;\n    background-color: #71707a;\n}\n\n.concertDetailsHdr a{\n    color: white;\n    font-weight: bolder;\n    float: right;\n    text-decoration: none;\n    margin-right: 5px;\n    margin-top: 5px;\n}\n\n.concertDetailsCtnt{\n    overflow-y: auto;\n    margin-top: 2%;\n    margin-left: 2%;\n}\n\n.concertDetailsCtnt h3{\n    margin-left: 3%;\n}\n\n.concertDetailsCtnt th{\n    border-bottom: solid thin black;\n}\n\nfieldset{\n    width: 50%;\n}\n\nlegend{\n    font-weight: bold;\n}\n", ""]);
+exports.push([module.i, ".allConcertsContainer{\n    width: 100%;\n    margin-left: 0;\n}\n\ntable, tr{\n    width: 100%;\n    font-size: 1.2rem;\n}\n\n.concertDetails{\n    z-index: 100;\n    position: fixed;\n    bottom: 0px;\n    right: 10px;\n    display: inline-block;\n    border: solid thin black;\n    width: 45%;\n    /*overflow-y: scroll;*/\n    background-color: white;\n    box-shadow: -7px 2px 6px 0px gray;\n    padding-bottom: 1%;\n}\n\n.hidden{\n    display: none;\n}\n\n.concertDetailsHdr{\n    width: 100%;\n    height: 30px;\n    background-color: #71707a;\n}\n\n.concertDetailsHdr a{\n    color: white;\n    font-weight: bolder;\n    float: right;\n    text-decoration: none;\n    margin-right: 5px;\n    margin-top: 5px;\n}\n\n.concertDetailsCtnt{\n    overflow-y: auto;\n    margin-top: 2%;\n    margin-left: 2%;\n}\n\n.concertDetailsCtnt h3{\n    margin-left: 3%;\n}\n\n.concertDetailsCtnt th{\n    border-bottom: solid thin black;\n}\n\nfieldset{\n    width: 50%;\n}\n\nlegend{\n    font-weight: bold;\n}\n", ""]);
 
 // exports
 
@@ -691,26 +691,15 @@ var LoginComponent = (function () {
     function LoginComponent(_userService, _router) {
         this._userService = _userService;
         this._router = _router;
-        this.newUser = (function () {
-            function User() {
-                this.firstName = '';
-                this.lastName = '';
-                this.email = '';
-                this.city = '';
-                this.state = '';
-                this.password = '';
-            }
-            return User;
-        }());
-        this.logUser = new (function () {
-            function LoginUser() {
-                this.logEmail = '';
-                this.logPass = '';
-            }
-            return LoginUser;
-        }());
+        this.newUser = {};
+        this.logUser = {};
     }
     LoginComponent.prototype.ngOnInit = function () {
+    };
+    LoginComponent.prototype.regNewUser = function () {
+        var _this = this;
+        console.log(this.newUser);
+        this._userService.regUser(this.newUser, function (response) { _this._router.navigate(['dashboard']); });
     };
     LoginComponent.prototype.loginUser = function () {
         var _this = this;
@@ -760,9 +749,19 @@ var UsersService = (function () {
     UsersService.prototype.setCurrentUser = function (user) {
         this.current_user = user;
     };
+    UsersService.prototype.regUser = function (newUser, callback) {
+        var _this = this;
+        this._http.post('http://localhost:3000/new', newUser).subscribe(function (response) {
+            _this.setCurrentUser(response.json());
+            callback(response);
+        });
+    };
     UsersService.prototype.checkUser = function (user, callback) {
         var _this = this;
-        this._http.post('http://localhost:3000', user).subscribe(function (response) { _this.setCurrentUser(response.json()); callback(response); }, function (error) { console.log(error); });
+        this._http.post('http://localhost:3000', user).subscribe(function (response) {
+            _this.setCurrentUser(response.json());
+            callback(response);
+        }, function (error) { console.log(error); });
     };
     UsersService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
