@@ -13,7 +13,7 @@ export class AppComponent {
     constructor(private _http:Http, private _router:Router){}
 
     logout(){
-        this._http.get('http://localhost:3000/logout').subscribe(
+        this._http.get('/logout').subscribe(
             (response) => { this._router.navigateByUrl('') }
         )
     }
