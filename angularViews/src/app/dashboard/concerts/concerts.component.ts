@@ -12,6 +12,8 @@ export class ConcertsComponent implements OnInit {
     concerts = []
     details = {}
     openOrClose = false
+    attended = false
+    status
 
     constructor(private _concertService: ConcertsService){
     }
@@ -30,11 +32,36 @@ export class ConcertsComponent implements OnInit {
     }
 
     showConcert(id){
-        this._concertService.showConcert(id)
+        this._concertService.showConcert(id,
+            (response) => { this.attended = response['attend']
+                console.log(this.attended)
+                if(this.attended){
+                    this.status = 'I went!'
+                }else{
+                    this.status = "Didn't go"
+                }
+            }
+        )
     }
 
     opener(boolean){
         this.openOrClose = boolean
+        this.details = {band:{},venue:'',city:'',state:'',date:'',songlist:[]}
+        this.details['band']['name']=''
+    }
+
+    attend(){
+        this._concertService.attend(this.attended,this.details['id'],
+            (response) => {
+                if(response['status']=='added'){
+                    this.status = 'I went'
+                    this.attended = true
+                }else{
+                    this.status = "Didn't go"
+                    this.attended = false
+                }
+            }
+        )
     }
 
 }

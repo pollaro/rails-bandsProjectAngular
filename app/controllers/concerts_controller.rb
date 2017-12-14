@@ -77,15 +77,16 @@ class ConcertsController < ApplicationController
         if b.nil?
             b = Band.create(name: params["band"]['name'])
         end
-        c = Concert.find_by(band: params['band']['name'], date: params['date'], city: params['city'])
+        c = Concert.find_by(band: b, date: params['date'], city: params['city'])
         if c.nil?
-            c = Concert.create(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
+            c = Concert.new(band: b, date: params['date'], city: params['city'], state: params['state'], venue: params['venue'], setlist: params['songlist'], user: current_user)
             # pp c
-            # puts c.valid?
-            # if c.valid?
-            #     c.save
-            # end
+            puts c.valid?
+            if c.valid?
+                c.save
+            end
         end
+        pp c
         Attend.create(user_id: session[:id], concert: c)
         a = Attend.last
         render json: a.to_json(:include => { :concert => {:include => :band}})
@@ -100,6 +101,12 @@ class ConcertsController < ApplicationController
         cityname = @concert.city
         tempdate = @concert.date.to_s.split('-')
         @output = Hash.new
+        attend = Attend.find_by(concert_id: @concert.id, user_id: session[:id])
+        if attend.nil?
+            attend = false
+        else
+            attend = true
+        end
 
         date = tempdate[2]+'-'+tempdate[1]+'-2017'
 
@@ -127,7 +134,7 @@ class ConcertsController < ApplicationController
                 end
             end
 
-            @output = { band: { name: @bandname }, logitude: @longitude, lat: @lat, songlist: @songsout, venue: @venuename, city: @venuecity, state: @venuestate, date: @concert.date }
+            @output = { band: { name: @bandname }, logitude: @longitude, lat: @lat, songlist: @songsout, venue: @venuename, city: @venuecity, state: @venuestate, date: @concert.date, attend: attend, id: @concert.id }
 
             puts @output
             render json: @output
@@ -156,20 +163,16 @@ class ConcertsController < ApplicationController
     end
 
     def attended
-        band = Band.new(name:params[:band])
-        if band.valid?
-            band.save
+        puts 'In Concerts/Attended'
+        concert = Concert.find(params[:id])
+        if !params['attended']
+            Attend.create(user_id:session[:id], concert:concert)
+            render json: {status: "added"}
         else
-            band = Band.find_by(name:params[:band])
+            a = Attend.find_by(concert: concert, user_id: session[:id])
+            Attend.destroy(a[:id])
+            render json: {status: "deleted"}
         end
-        concert = Concert.new(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:band, user_id:session[:id])
-        if concert.valid?
-            concert.save
-        else
-            concert = Concert.find_by(date:params[:date], venue:params[:venue], city:params[:city], state:params[:state], band:band)
-        end
-        Attend.create(user_id:session[:id], concert:concert)
-        redirect_to '/dashboard'
     end
 
     def all

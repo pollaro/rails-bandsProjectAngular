@@ -16,14 +16,14 @@
             <a href="javascript:void(0)" (click)="opener(false)">X</a>
         </div>
         <div *ngIf="details" [ngStyle]="{'height.px': 0.87 * windowHeight-30 }"class="concertDetailsCtnt">
-            <h2 *ngIf="details.band.name">{{ details.band.name }}</h2>
-            <h3 *ngIf="details.venue" >{{ details.venue }}</h3>
-            <h3 *ngIf="details.city">{{ details.city }}, {{ details.state }}</h3>
-            <h3 *ngIf="details.date">{{ details.date | date: 'longDate' }}</h3>
+            <h2 *ngIf="details">{{ details.band.name }}</h2><button type="button" [ngClass]="{'went':attended===true,'didnt':attended===false}" (click)="attend()">{{status}}</button>
+            <h3 *ngIf="details" >{{ details.venue }}</h3>
+            <h3 *ngIf="details">{{ details.city }}, {{ details.state }}</h3>
+            <h3 *ngIf="details">{{ details.date | date: 'longDate' }}</h3>
             <br>
             <fieldset>
                 <legend><h3>Setlist</h3></legend>
-                <table *ngIf="details.songlist">
+                <table *ngIf="details">
                     <tr>
                         <th>Song Title</th>
                     </tr>

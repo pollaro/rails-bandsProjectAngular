@@ -29,10 +29,12 @@ export class ConcertsService {
         )
     }
 
-    showConcert(id){
+    showConcert(id,callback){
         this._http.get('http://localhost:3000/concerts/'+id).subscribe(
             (response) => { this.concertDetails.next(response.json())
                 this.openDiv.next(true)
+                console.log(response.json())
+                callback(response.json())
             },
             (error) => { console.log(error) }
         )
@@ -57,6 +59,14 @@ export class ConcertsService {
             (response) => { callback(response.json())
                 this.getAllConcerts()
             },
+            (error) => { console.log(error) }
+        )
+    }
+
+    attend(attend,id,callback){
+        let req = {attended: attend}
+        this._http.post('http://localhost:3000/concerts/'+id,req).subscribe(
+            (response) => { console.log(response); callback(response.json()) },
             (error) => { console.log(error) }
         )
     }

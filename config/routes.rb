@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
     post '/' => 'sessions#login'
     post '/new' => 'sessions#register'
+    get '/logout' => 'sessions#logout'
 
     get '/users/:id/attended' => 'users#concerts_attended'
 
@@ -14,6 +15,7 @@ Rails.application.routes.draw do
     get '/concerts/:id' => 'concerts#show_page'
     post '/concerts/find' => 'concerts#index'
     post '/concerts/save' => 'concerts#save'
+    post '/concerts/:id' => 'concerts#attended'
 
     get '*unmatchedroute' => 'pages#index'
 

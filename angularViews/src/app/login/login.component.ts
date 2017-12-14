@@ -18,14 +18,12 @@ export class LoginComponent implements OnInit {
     }
 
     regNewUser(){
-        console.log(this.newUser)
         this._userService.regUser(this.newUser,
             (response) => { this._router.navigate(['dashboard'])}
         )
     }
 
     loginUser(){
-        console.log(this.logUser)
         this._userService.checkUser(this.logUser,
             (response) => { this._router.navigate(['dashboard'])}
     )}

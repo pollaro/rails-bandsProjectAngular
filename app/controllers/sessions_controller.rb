@@ -34,13 +34,14 @@ class SessionsController < ApplicationController
         end
     end
 
-    def destroy
+    def logout
       session[:id] = nil
       session[:firstname] = nil
       session[:lastname] = nil
       session[:city] = nil
       session[:email] = nil
-      redirect_to '/'
+      puts session[:email]
+      render json: session
     end
 
 end

@@ -51,3 +51,7 @@
     /*margin-right: 10%;*/
     text-align: center;
 }
+
+#logout:hover{
+    cursor: pointer;
+}

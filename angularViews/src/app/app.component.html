@@ -2,7 +2,7 @@
     <div class="hdrInfo">
         <img src="../assets/images/noted_word.png" alt="Noted Logo">
     </div>
-    <span class="hdrLinks"><a [routerLink]="['dashboard']">Home</a> <a [routerLink]="['dashboard','bands']">Bands</a> <a [routerLink]="['dashboard','concerts']">Concerts</a> <a [routerLink]="['logout']">Logout</a></span>
+    <span class="hdrLinks"><a [routerLink]="['dashboard']">Home</a> <a [routerLink]="['dashboard','bands']">Bands</a> <a [routerLink]="['dashboard','concerts']">Concerts</a> <a id="logout" (click)="logout()">Logout</a></span>
 </div>
 
 <div class="mainContent">
