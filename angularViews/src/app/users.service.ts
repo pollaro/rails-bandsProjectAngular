@@ -17,7 +17,7 @@ export class UsersService {
     }
 
     regUser(newUser,callback){
-        this._http.post('http://localhost:3000/new',newUser).subscribe(
+        this._http.post('/new',newUser).subscribe(
             (response) => {
                 this.setCurrentUser(response.json())
                 callback(response)
@@ -26,7 +26,7 @@ export class UsersService {
     }
 
     checkUser(user,callback){
-        this._http.post('http://localhost:3000',user).subscribe(
+        this._http.post('/',user).subscribe(
             (response) => {
                 this.setCurrentUser(response.json());
                 callback(response)},

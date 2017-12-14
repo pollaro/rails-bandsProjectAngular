@@ -16,21 +16,21 @@ export class ConcertsService {
     }
 
     getAllAttended(user,callback){
-        this._http.get('http://localhost:3000/users/'+user['id']+'/attended').subscribe(
+        this._http.get('/users/'+user['id']+'/attended').subscribe(
             (response) => { callback(response.json()) },
             (error) => { console.log(error) }
         )
     }
 
     getAllConcerts(){
-        this._http.get('http://localhost:3000/concerts').subscribe(
+        this._http.get('/concerts').subscribe(
             (response) => { this.allConcerts.next(response.json()) },
             (error) => { console.log(error) }
         )
     }
 
     showConcert(id,callback){
-        this._http.get('http://localhost:3000/concerts/'+id).subscribe(
+        this._http.get('/concerts/'+id).subscribe(
             (response) => { this.concertDetails.next(response.json())
                 this.openDiv.next(true)
                 console.log(response.json())
@@ -41,7 +41,7 @@ export class ConcertsService {
     }
 
     findConcert(req,callback){
-        this._http.post('http://localhost:3000/concerts/find',req).subscribe(
+        this._http.post('/concerts/find',req).subscribe(
             (response) => { this.tempDetails = response.json()
                 if(this.tempDetails['attended']){
                     this.concertDetails.next(response.json())
@@ -55,7 +55,7 @@ export class ConcertsService {
     }
 
     saveShow(show,callback){
-        this._http.post('http://localhost:3000/concerts/save',show).subscribe(
+        this._http.post('/concerts/save',show).subscribe(
             (response) => { callback(response.json())
                 this.getAllConcerts()
             },
@@ -65,7 +65,7 @@ export class ConcertsService {
 
     attend(attend,id,callback){
         let req = {attended: attend}
-        this._http.post('http://localhost:3000/concerts/'+id,req).subscribe(
+        this._http.post('/concerts/'+id,req).subscribe(
             (response) => { console.log(response); callback(response.json()) },
             (error) => { console.log(error) }
         )

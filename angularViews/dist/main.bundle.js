@@ -232,7 +232,7 @@ var BandsService = (function () {
         this._http = _http;
     }
     BandsService.prototype.getAllBands = function (callback) {
-        this._http.get('http://localhost:3000/bands').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        this._http.get('/bands').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
     };
     BandsService.prototype.bandSearch = function (bandname, callback) {
         var parsedRes;
@@ -243,7 +243,7 @@ var BandsService = (function () {
         }, function (error) { console.log(error); });
     };
     BandsService.prototype.addBand = function (newBand, callback) {
-        this._http.post('http://localhost:3000/bands/new', newBand).subscribe(function (response) { callback(response); }, function (error) { console.log(error); });
+        this._http.post('/bands/new', newBand).subscribe(function (response) { callback(response); }, function (error) { console.log(error); });
     };
     BandsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -288,15 +288,15 @@ var ConcertsService = (function () {
         this.getAllConcerts();
     }
     ConcertsService.prototype.getAllAttended = function (user, callback) {
-        this._http.get('http://localhost:3000/users/' + user['id'] + '/attended').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        this._http.get('/users/' + user['id'] + '/attended').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.getAllConcerts = function () {
         var _this = this;
-        this._http.get('http://localhost:3000/concerts').subscribe(function (response) { _this.allConcerts.next(response.json()); }, function (error) { console.log(error); });
+        this._http.get('/concerts').subscribe(function (response) { _this.allConcerts.next(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.showConcert = function (id, callback) {
         var _this = this;
-        this._http.get('http://localhost:3000/concerts/' + id).subscribe(function (response) {
+        this._http.get('/concerts/' + id).subscribe(function (response) {
             _this.concertDetails.next(response.json());
             _this.openDiv.next(true);
             console.log(response.json());
@@ -305,7 +305,7 @@ var ConcertsService = (function () {
     };
     ConcertsService.prototype.findConcert = function (req, callback) {
         var _this = this;
-        this._http.post('http://localhost:3000/concerts/find', req).subscribe(function (response) {
+        this._http.post('/concerts/find', req).subscribe(function (response) {
             _this.tempDetails = response.json();
             if (_this.tempDetails['attended']) {
                 _this.concertDetails.next(response.json());
@@ -318,14 +318,14 @@ var ConcertsService = (function () {
     };
     ConcertsService.prototype.saveShow = function (show, callback) {
         var _this = this;
-        this._http.post('http://localhost:3000/concerts/save', show).subscribe(function (response) {
+        this._http.post('/concerts/save', show).subscribe(function (response) {
             callback(response.json());
             _this.getAllConcerts();
         }, function (error) { console.log(error); });
     };
     ConcertsService.prototype.attend = function (attend, id, callback) {
         var req = { attended: attend };
-        this._http.post('http://localhost:3000/concerts/' + id, req).subscribe(function (response) { console.log(response); callback(response.json()); }, function (error) { console.log(error); });
+        this._http.post('/concerts/' + id, req).subscribe(function (response) { console.log(response); callback(response.json()); }, function (error) { console.log(error); });
     };
     ConcertsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -797,14 +797,14 @@ var UsersService = (function () {
     };
     UsersService.prototype.regUser = function (newUser, callback) {
         var _this = this;
-        this._http.post('http://localhost:3000/new', newUser).subscribe(function (response) {
+        this._http.post('/new', newUser).subscribe(function (response) {
             _this.setCurrentUser(response.json());
             callback(response);
         });
     };
     UsersService.prototype.checkUser = function (user, callback) {
         var _this = this;
-        this._http.post('http://localhost:3000', user).subscribe(function (response) {
+        this._http.post('/', user).subscribe(function (response) {
             _this.setCurrentUser(response.json());
             callback(response);
         }, function (error) { console.log(error); });

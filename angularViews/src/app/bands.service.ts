@@ -7,7 +7,7 @@ export class BandsService {
     constructor(private _http: Http) { }
 
     getAllBands(callback){
-        this._http.get('http://localhost:3000/bands').subscribe(
+        this._http.get('/bands').subscribe(
             (response) => { callback(response.json()) },
             (error) => { console.log(error) }
         )
@@ -25,7 +25,7 @@ export class BandsService {
     }
 
     addBand(newBand,callback){
-        this._http.post('http://localhost:3000/bands/new',newBand).subscribe(
+        this._http.post('/bands/new',newBand).subscribe(
             (response) => { callback(response) },
             (error) => { console.log(error) }
         )
