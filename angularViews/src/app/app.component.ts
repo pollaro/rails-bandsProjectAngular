@@ -14,7 +14,7 @@ export class AppComponent {
 
     logout(){
         this._http.get('/logout').subscribe(
-            (response) => { this._router.navigateByUrl('') }
+            (response) => { this._router.navigateByUrl('/') }
         )
     }
 }
