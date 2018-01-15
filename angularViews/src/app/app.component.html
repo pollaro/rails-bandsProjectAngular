@@ -5,6 +5,8 @@
     <span class="hdrLinks"><a [routerLink]="['dashboard']">Home</a> <a [routerLink]="['dashboard','bands']">Bands</a> <a [routerLink]="['dashboard','concerts']">Concerts</a> <a id="logout" (click)="logout()">Logout</a></span>
 </div>
 
-<div class="mainContent">
-    <router-outlet></router-outlet>
+<div class="backgroundImg">
+    <div class="mainContent">
+        <router-outlet></router-outlet>
+    </div>
 </div>

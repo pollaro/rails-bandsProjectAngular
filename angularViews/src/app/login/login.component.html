@@ -1,60 +1,62 @@
 
-
-<div class="regBox">
-    <fieldset>
-        <legend><h2>Register</h2></legend>
-        <form #regForm="ngForm" (submit)="regNewUser()">
-            <label for="firstName">First Name:</label><br>
-            <input type="text"
-            name="firstName"
-            [(ngModel)]="newUser.firstName"
-            #firstName="ngModel"
-            required
-            minlength="1"><br>
-            <span class="errors" [hidden]="firstName.valid || firstName.pristine">First Name is required</span><br>
-            <label for="lastName">Last Name:</label><br>
-            <input type="text"
-            name="lastName"
-            [(ngModel)]="newUser.lastName"
-            #lastName="ngModel"
-            required
-            minlength="1"><br>
-            <span class="errors" [hidden]="lastName.valid || lastName.pristine">Last Name is required</span><br>
-            <label for="email">Email:</label><br>
-            <input type="text"
-            name="email"
-            required
-            pattern="[a-zA-Z0-9\.-]+@[a-zA-Z0-9]+\.[a-zA-Z]{3}"
-            [(ngModel)]="newUser.email"
-            #email="ngModel"><br>
-            <span class="errors" [hidden]="email.valid || email.pristine">Email is required and must be a valid email format.</span><br>
-            <label for="city">City:</label><br>
-            <input type="text"
-            name="city"
-            required
-            [(ngModel)]="newUser.city"
-            #city="ngModel"
-            minlength="1"><br>
-            <span class="errors" [hidden]="city.valid || city.pristine">City is required</span><br>
-            <label for="state">State:</label><br>
-            <input type="text"
-            name="state"
-            required
-            [(ngModel)]="newUser.state"
-            #state="ngModel"
-            minlength="1"><br>
-            <span class="errors" [hidden]="state.valid || state.pristine">State is required</span><br>
-            <label for="password">Password:</label><br>
-            <input type="password"
-            name="password"
-            required
-            [(ngModel)]="newUser.password"
-            #password="ngModel"
-            minlength="6"><br>
-            <span class="errors" [hidden]="password.valid || password.pristine">Password is required and must be at least 6 characters long</span><br>
-            <input type="submit" id="regBut" value="Register" [disabled]="!regForm.form.valid">
-        </form>
-    </fieldset>
+<div [ngClass]="{'regBoxOver':true, 'hidden':!newUserOpen}">
+    <div [ngClass]="{'regBox':true}">
+        <fieldset>
+            <legend><h2>Register</h2></legend>
+            <form #regForm="ngForm" (submit)="regNewUser()">
+                <label for="firstName">First Name:</label><br>
+                <input type="text"
+                name="firstName"
+                [(ngModel)]="newUser.firstName"
+                #firstName="ngModel"
+                required
+                minlength="1"><br>
+                <span class="errors" [hidden]="firstName.valid || firstName.pristine">First Name is required</span><br>
+                <label for="lastName">Last Name:</label><br>
+                <input type="text"
+                name="lastName"
+                [(ngModel)]="newUser.lastName"
+                #lastName="ngModel"
+                required
+                minlength="1"><br>
+                <span class="errors" [hidden]="lastName.valid || lastName.pristine">Last Name is required</span><br>
+                <label for="email">Email:</label><br>
+                <input type="text"
+                name="email"
+                required
+                pattern="[a-zA-Z0-9\.-]+@[a-zA-Z0-9]+\.[a-zA-Z]{3}"
+                [(ngModel)]="newUser.email"
+                #email="ngModel"><br>
+                <span class="errors" [hidden]="email.valid || email.pristine">Email is required and must be a valid email format.</span><br>
+                <label for="city">City:</label><br>
+                <input type="text"
+                name="city"
+                required
+                [(ngModel)]="newUser.city"
+                #city="ngModel"
+                minlength="1"><br>
+                <span class="errors" [hidden]="city.valid || city.pristine">City is required</span><br>
+                <label for="state">State:</label><br>
+                <input type="text"
+                name="state"
+                required
+                [(ngModel)]="newUser.state"
+                #state="ngModel"
+                minlength="1"><br>
+                <span class="errors" [hidden]="state.valid || state.pristine">State is required</span><br>
+                <label for="password">Password:</label><br>
+                <input type="password"
+                name="password"
+                required
+                [(ngModel)]="newUser.password"
+                #password="ngModel"
+                minlength="6"><br>
+                <span class="errors" [hidden]="password.valid || password.pristine">Password is required and must be at least 6 characters long</span><br>
+                <input type="submit" id="regBut" value="Register" [disabled]="!regForm.form.valid">
+            </form>
+            <a href="javascript:void(0)" (click)="newUserDiv(false)">Already registered? Click here to login</a>
+        </fieldset>
+    </div>
 </div>
 <div class="loginBox">
     <fieldset>
@@ -77,5 +79,6 @@
             <span class="errors" [hidden]="logPass.valid || logPass.pristine">Password is required to login</span><br>
             <input type="submit" id="logBut" value="Login" [disabled]="!loginForm.form.valid">
         </form>
+        <a href="javascript:void(0)" (click)="newUserDiv(true)">Not a User? Click her to register.</a>
     </fieldset>
 </div>

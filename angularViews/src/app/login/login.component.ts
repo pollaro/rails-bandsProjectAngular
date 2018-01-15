@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { UsersService } from '../users.service'
 import { Router } from '@angular/router'
 
@@ -8,24 +8,27 @@ import { Router } from '@angular/router'
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  newUser = {}
+  logUser = {}
+  newUserOpen = false
 
-    newUser = {}
-    logUser = {}
+  constructor(private _userService: UsersService, private _router: Router) {}
 
-    constructor(private _userService: UsersService, private _router: Router){}
+  ngOnInit() {}
 
-    ngOnInit() {
-    }
+  regNewUser() {
+    this._userService.regUser(this.newUser, (response) => {
+      this._router.navigate(['dashboard'])
+    })
+  }
 
-    regNewUser(){
-        this._userService.regUser(this.newUser,
-            (response) => { this._router.navigate(['dashboard'])}
-        )
-    }
+  newUserDiv(bool) {
+    this.newUserOpen = bool
+  }
 
-    loginUser(){
-        this._userService.checkUser(this.logUser,
-            (response) => { this._router.navigate(['dashboard'])}
-    )}
-
+  loginUser() {
+    this._userService.checkUser(this.logUser, (response) => {
+      this._router.navigate(['dashboard'])
+    })
+  }
 }

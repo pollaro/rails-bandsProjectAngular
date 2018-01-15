@@ -44,11 +44,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 var routes = [
     { path: '', pathMatch: 'full', component: __WEBPACK_IMPORTED_MODULE_2__login_login_component__["a" /* LoginComponent */] },
-    { path: 'dashboard', component: __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard_component__["a" /* DashboardComponent */], children: [
+    {
+        path: 'dashboard',
+        component: __WEBPACK_IMPORTED_MODULE_3__dashboard_dashboard_component__["a" /* DashboardComponent */],
+        children: [
             { path: 'concerts', component: __WEBPACK_IMPORTED_MODULE_5__dashboard_concerts_concerts_component__["a" /* ConcertsComponent */] },
             { path: 'bands', component: __WEBPACK_IMPORTED_MODULE_4__dashboard_bands_bands_component__["a" /* BandsComponent */] },
             { path: '', pathMatch: 'full', component: __WEBPACK_IMPORTED_MODULE_6__dashboard_friends_friends_component__["a" /* FriendsComponent */] }
-        ] },
+        ]
+    },
     { path: 'bands', component: __WEBPACK_IMPORTED_MODULE_4__dashboard_bands_bands_component__["a" /* BandsComponent */] }
 ];
 var AppRoutingModule = (function () {
@@ -75,7 +79,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".header{\n    height: 5%;\n    padding: 1%;\n    padding-top: 2%;\n    padding-bottom: 2%;\n    background: linear-gradient(#21B4B1,white);\n\n}\n\n.hdrInfo{\n    width:66%;\n    display: inline-block;\n}\n\n.hdrLinks{\n    /*float: right;*/\n    /*margin-right: 1%;*/\n    display: inline-block;\n    text-align: right;\n    width: 33%;\n}\n\n.hdrLinks a{\n    box-sizing: border-box;\n    margin: 2%;\n    color: black;\n    text-decoration: none;\n    font-size: 1.2rem;\n    /*float: right;*/\n}\n\n.hdrLinks a:hover{\n    text-decoration: underline;\n    color: #0056b3;\n}\n\n.sideBar img{\n    vertical-align: middle;\n}\n\n.sideBar h1{\n    vertical-align: middle;\n    display: inline;\n}\n\n.mainContent{\n    display: inline-block;\n    width: 90%;\n    margin-top: 1%;\n    margin-left: 5%;\n    /*margin-right: 10%;*/\n    text-align: center;\n}\n\n#logout:hover{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, ".header {\n  height: 5%;\n  padding: 1%;\n  padding-top: 2%;\n  padding-bottom: 2%;\n  background: linear-gradient(#d4d4d4, #0c1017);\n}\n\n.hdrInfo {\n  width: 66%;\n  display: inline-block;\n}\n\n.hdrLinks {\n  /*float: right;*/\n  /*margin-right: 1%;*/\n  display: inline-block;\n  text-align: right;\n  width: 33%;\n}\n\n.hdrLinks a {\n  box-sizing: border-box;\n  margin: 2%;\n  color: black;\n  text-decoration: none;\n  font-size: 1.2rem;\n  /*float: right;*/\n}\n\n.hdrLinks a:hover {\n  text-decoration: underline;\n  color: #0056b3;\n}\n\n.sideBar img {\n  vertical-align: middle;\n}\n\n.sideBar h1 {\n  vertical-align: middle;\n  display: inline;\n}\n.backgroundImg {\n  z-index: -10;\n  position: absolute;\n  background-image: url(" + __webpack_require__("../../../../../src/assets/images/background1.jpg") + ");\n  width: 100%;\n  height: 100%;\n  background-position: 50% 0%;\n  -ms-background-size: cover;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n.mainContent {\n  display: inline-block;\n  width: 90%;\n  margin-top: 1%;\n  margin-left: 5%;\n  /*margin-right: 10%;*/\n  text-align: center;\n}\n\n#logout:hover {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -88,7 +92,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\n    <div class=\"hdrInfo\">\n        <img src=\"../assets/images/noted_word.png\" alt=\"Noted Logo\">\n    </div>\n    <span class=\"hdrLinks\"><a [routerLink]=\"['dashboard']\">Home</a> <a [routerLink]=\"['dashboard','bands']\">Bands</a> <a [routerLink]=\"['dashboard','concerts']\">Concerts</a> <a id=\"logout\" (click)=\"logout()\">Logout</a></span>\n</div>\n\n<div class=\"mainContent\">\n    <router-outlet></router-outlet>\n</div>\n"
+module.exports = "<div class=\"header\">\n    <div class=\"hdrInfo\">\n        <img src=\"../assets/images/noted_word.png\" alt=\"Noted Logo\">\n    </div>\n    <span class=\"hdrLinks\"><a [routerLink]=\"['dashboard']\">Home</a> <a [routerLink]=\"['dashboard','bands']\">Bands</a> <a [routerLink]=\"['dashboard','concerts']\">Concerts</a> <a id=\"logout\" (click)=\"logout()\">Logout</a></span>\n</div>\n\n<div class=\"backgroundImg\">\n    <div class=\"mainContent\">\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
 
 /***/ }),
 
@@ -120,7 +124,7 @@ var AppComponent = (function () {
     }
     AppComponent.prototype.logout = function () {
         var _this = this;
-        this._http.get('http://localhost:3000/logout').subscribe(function (response) { _this._router.navigateByUrl(''); });
+        this._http.get('/logout').subscribe(function (response) { _this._router.navigateByUrl('/'); });
     };
     AppComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -283,25 +287,45 @@ var ConcertsService = (function () {
         this._http = _http;
         this._router = _router;
         this.allConcerts = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]([]);
-        this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({ band: { name: '' }, date: '', city: '', venue: '', state: '', songlist: [], lat: '', longitude: '' });
+        this.concertDetails = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */]({
+            band: { name: '' },
+            date: '',
+            city: '',
+            venue: '',
+            state: '',
+            songlist: [],
+            lat: '',
+            longitude: ''
+        });
         this.openDiv = new __WEBPACK_IMPORTED_MODULE_2_rxjs_BehaviorSubject__["a" /* BehaviorSubject */](false);
         this.getAllConcerts();
     }
     ConcertsService.prototype.getAllAttended = function (user, callback) {
-        this._http.get('/users/' + user['id'] + '/attended').subscribe(function (response) { callback(response.json()); }, function (error) { console.log(error); });
+        this._http.get('/users/' + user['id'] + '/attended').subscribe(function (response) {
+            callback(response.json());
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService.prototype.getAllConcerts = function () {
         var _this = this;
-        this._http.get('/concerts').subscribe(function (response) { _this.allConcerts.next(response.json()); }, function (error) { console.log(error); });
+        this._http.get('/concerts').subscribe(function (response) {
+            _this.allConcerts.next(response.json());
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService.prototype.showConcert = function (id, callback) {
         var _this = this;
+        this._router.navigateByUrl('/dashboard/concerts');
         this._http.get('/concerts/' + id).subscribe(function (response) {
             _this.concertDetails.next(response.json());
             _this.openDiv.next(true);
             console.log(response.json());
             callback(response.json());
-        }, function (error) { console.log(error); });
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService.prototype.findConcert = function (req, callback) {
         var _this = this;
@@ -314,18 +338,27 @@ var ConcertsService = (function () {
             else {
                 callback(response.json());
             }
-        }, function (error) { console.log(error); });
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService.prototype.saveShow = function (show, callback) {
         var _this = this;
         this._http.post('/concerts/save', show).subscribe(function (response) {
             callback(response.json());
             _this.getAllConcerts();
-        }, function (error) { console.log(error); });
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService.prototype.attend = function (attend, id, callback) {
         var req = { attended: attend };
-        this._http.post('/concerts/' + id, req).subscribe(function (response) { console.log(response); callback(response.json()); }, function (error) { console.log(error); });
+        this._http.post('/concerts/' + id, req).subscribe(function (response) {
+            console.log(response);
+            callback(response.json());
+        }, function (error) {
+            console.log(error);
+        });
     };
     ConcertsService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -429,7 +462,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".allConcertsContainer{\n    width: 100%;\n    margin-left: 0;\n}\n\ntable, tr{\n    width: 100%;\n    font-size: 1.2rem;\n}\n\n.concertDetails{\n    z-index: 100;\n    position: fixed;\n    bottom: 0px;\n    right: 10px;\n    display: inline-block;\n    border: solid thin black;\n    width: 45%;\n    /*overflow-y: scroll;*/\n    background-color: white;\n    box-shadow: -7px 2px 6px 0px gray;\n    padding-bottom: 1%;\n}\n\n.hidden{\n    display: none;\n}\n\n.concertDetailsHdr{\n    width: 100%;\n    height: 30px;\n    background-color: #71707a;\n}\n\n.concertDetailsHdr a{\n    color: white;\n    font-weight: bolder;\n    float: right;\n    text-decoration: none;\n    margin-right: 5px;\n    margin-top: 5px;\n}\n\n.concertDetailsCtnt{\n    overflow-y: auto;\n    margin-top: 2%;\n    margin-left: 2%;\n    padding-bottom: 5%;\n}\n\n.concertDetailsCtnt h3{\n    margin-left: 3%;\n}\n\n.concertDetailsCtnt th{\n    border-bottom: solid thin black;\n}\n\nfieldset{\n    width: 50%;\n}\n\nlegend{\n    font-weight: bold;\n}\n\n.didnt{\n    display: inline-block;\n    float: right;\n    margin-right: 6%;\n    max-width: 111px;\n    min-width: 90px;\n    height: 2rem;\n    border: none;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: #21B4B1;\n    color: white;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n.went{\n    display: inline-block;\n    float: right;\n    margin-right: 6%;\n    max-width: 111px;\n    min-width: 90px;\n    height: 2rem;\n    border: thin solid #21B4B1;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: white;\n    color: #21B4B1;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n", ""]);
+exports.push([module.i, ".allConcertsContainer {\n  width: 100%;\n  margin-left: 0;\n}\n\ntable,\ntr {\n  width: 100%;\n  font-size: 1.2rem;\n}\n\n.concertDetails {\n  z-index: 100;\n  position: fixed;\n  bottom: 0px;\n  right: 10px;\n  display: inline-block;\n  border: solid thin black;\n  width: 45%;\n  /*overflow-y: scroll;*/\n  background-color: white;\n  box-shadow: -7px 2px 6px 0px gray;\n  padding-bottom: 1%;\n}\n\n.hidden {\n  display: none;\n}\n\n.concertDetailsHdr {\n  width: 100%;\n  height: 30px;\n  background-color: #71707a;\n}\n\n.concertDetailsHdr a {\n  color: white;\n  font-weight: bolder;\n  float: right;\n  text-decoration: none;\n  margin-right: 5px;\n  margin-top: 5px;\n}\n\n.concertDetailsCtnt {\n  overflow-y: auto;\n  margin-top: 2%;\n  margin-left: 2%;\n  padding-bottom: 5%;\n}\n\n.concertDetailsCtnt h3 {\n  margin-left: 3%;\n}\n\n.concertDetailsCtnt th {\n  border-bottom: solid thin black;\n}\n\nfieldset {\n  width: 50%;\n}\n\nlegend {\n  font-weight: bold;\n}\n\n.didnt {\n  display: inline-block;\n  float: right;\n  margin-right: 6%;\n  max-width: 111px;\n  min-width: 90px;\n  height: 2rem;\n  border: thin solid black;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: white;\n  color: black;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n.went {\n  display: inline-block;\n  float: right;\n  margin-right: 6%;\n  max-width: 111px;\n  min-width: 90px;\n  height: 2rem;\n  border: thin solid #000000;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: black;\n  color: white;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n", ""]);
 
 // exports
 
@@ -470,21 +503,27 @@ var ConcertsComponent = (function () {
         this.concerts = [];
         this.details = {};
         this.openOrClose = false;
-        this.attended = false;
+        this.attended = true;
+        this.status = 'I went!';
     }
     ConcertsComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.windowHeight = window.innerHeight;
-        this._concertService.concertDetails.subscribe(function (response) { _this.details = response; });
-        this._concertService.openDiv.subscribe(function (response) { _this.openOrClose = response; });
-        this._concertService.allConcerts.subscribe(function (response) { _this.concerts = response; });
+        this._concertService.concertDetails.subscribe(function (response) {
+            _this.details = response;
+        });
+        this._concertService.openDiv.subscribe(function (response) {
+            _this.openOrClose = response;
+        });
+        this._concertService.allConcerts.subscribe(function (response) {
+            _this.concerts = response;
+        });
     };
     ConcertsComponent.prototype.showConcert = function (id) {
         var _this = this;
         this._concertService.showConcert(id, function (response) {
-            _this.attended = response['attend'];
-            console.log(_this.attended);
-            if (_this.attended) {
+            //   this.attended = this.details['attend']
+            if (_this.details['attend']) {
                 _this.status = 'I went!';
             }
             else {
@@ -533,7 +572,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".col{\n    display: inline-block;\n    text-align: left;\n    padding: 3%;\n    padding-top: 0%;\n}\n\n.leftCol{\n    width: 40%;\n    padding-right: 0;\n}\n\n.leftCol fieldset{\n    width: 70%;\n    padding: 2%;\n    display: inline-block;\n}\n\n.leftCol label{\n    font-size: 1.3rem;\n}\n\nfieldset input{\n    width: 90%;\n    height: 1.5rem;\n    margin: 1%;\n}\n\n.pastShows table{\n    margin-top: 2%;\n    width: 80%;\n    font-size: 1.2rem;\n}\n\n.concertDetails{\n    z-index: 100;\n    position: fixed;\n    bottom: 0px;\n    left: 10px;\n    display: inline-block;\n    border: solid thin black;\n    width: 45%;\n    /*overflow-y: auto;*/\n    background-color: white;\n    box-shadow: 0px 6px 2px -7px gray;\n}\n\n.hidden{\n    display: none;\n}\n\n.concertDetailsHdr{\n    width: 100%;\n    height: 30px;\n    background-color: #71707a;\n}\n\n.concertDetailsHdr a{\n    color: white;\n    font-weight: bolder;\n    float: right;\n    text-decoration: none;\n    margin-right: 5px;\n    margin-top: 5px;\n}\n\n.concertDetailsCtnt{\n    overflow-y: auto;\n    margin-top: 2%;\n    margin-left: 2%;\n    padding-bottom: 5%;\n}\n\n.concertDetailsCtnt h3{\n    margin-left: 3%;\n}\n\n.concertDetailsCtnt th{\n    border-bottom: solid thin black;\n}\n\n.didnt{\n    display: inline-block;\n    float: right;\n    margin-right: 6%;\n    max-width: 111px;\n    min-width: 90px;\n    height: 2rem;\n    border: none;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: #21B4B1;\n    color: white;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n.went{\n    display: inline-block;\n    float: right;\n    margin-right: 6%;\n    max-width: 111px;\n    min-width: 90px;\n    height: 2rem;\n    border: thin solid #21B4B1;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: white;\n    color: #21B4B1;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n.rightCol{\n    width: 40%;\n    padding-left: 0;\n    vertical-align: top;\n}\n\n/*.rightCol input{\n    margin: 1%;\n    width: 90%;\n    height: 1.5rem;\n}*/\n\n.rigthCol {\n    margin-top: 10%;\n}\n\n#findBut{\n    margin-top: 1%;\n    max-width: 111px;\n    min-width: 90px;\n    height: 2rem;\n    border: none;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: #21B4B1;\n    color: white;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n#findBut:disabled{\n    color: gray;\n    opacity: 0.66;\n}\n", ""]);
+exports.push([module.i, ".col {\n  display: inline-block;\n  text-align: left;\n  padding: 3%;\n  padding-top: 0%;\n}\n\n.leftCol {\n  width: 40%;\n  padding-right: 0;\n}\n\n.leftCol fieldset {\n  width: 70%;\n  padding: 2%;\n  display: inline-block;\n}\n\n.leftCol label {\n  font-size: 1.3rem;\n}\n\nfieldset input {\n  width: 90%;\n  height: 1.5rem;\n  margin: 1%;\n}\n\n.pastShows table {\n  margin-top: 2%;\n  width: 80%;\n  font-size: 1.2rem;\n}\n\n.concertDetails {\n  z-index: 100;\n  position: fixed;\n  bottom: 0px;\n  left: 10px;\n  display: inline-block;\n  border: solid thin black;\n  width: 45%;\n  /*overflow-y: auto;*/\n  background-color: white;\n  box-shadow: 0px 6px 2px -7px gray;\n}\n\n.hidden {\n  display: none;\n}\n\n.concertDetailsHdr {\n  width: 100%;\n  height: 30px;\n  background-color: #71707a;\n}\n\n.concertDetailsHdr a {\n  color: white;\n  font-weight: bolder;\n  float: right;\n  text-decoration: none;\n  margin-right: 5px;\n  margin-top: 5px;\n}\n\n.concertDetailsCtnt {\n  overflow-y: auto;\n  margin-top: 2%;\n  margin-left: 2%;\n  padding-bottom: 5%;\n}\n\n.concertDetailsCtnt h3 {\n  margin-left: 3%;\n}\n\n.concertDetailsCtnt th {\n  border-bottom: solid thin black;\n}\n\n.didnt {\n  display: inline-block;\n  float: right;\n  margin-right: 6%;\n  max-width: 111px;\n  min-width: 90px;\n  height: 2rem;\n  border: none;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: #000000;\n  color: white;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n.went {\n  display: inline-block;\n  float: right;\n  margin-right: 6%;\n  max-width: 111px;\n  min-width: 90px;\n  height: 2rem;\n  border: thin solid #000000;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: white;\n  color: #000000;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n.rightCol {\n  width: 40%;\n  padding-left: 0;\n  vertical-align: top;\n}\n\n/*.rightCol input{\n    margin: 1%;\n    width: 90%;\n    height: 1.5rem;\n}*/\n\n.rigthCol {\n  margin-top: 10%;\n}\n\n#findBut {\n  margin-top: 1%;\n  max-width: 111px;\n  min-width: 90px;\n  height: 2rem;\n  border: none;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: #000000;\n  color: white;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n#findBut:disabled {\n  color: gray;\n  opacity: 0.66;\n}\n", ""]);
 
 // exports
 
@@ -558,6 +597,7 @@ module.exports = "<div class=\"col leftCol\">\n    <div class=\"pastShows\">\n  
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/esm5/core.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__concerts_service__ = __webpack_require__("../../../../../src/app/concerts.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__users_service__ = __webpack_require__("../../../../../src/app/users.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("../../../router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -570,10 +610,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var DashboardComponent = (function () {
-    function DashboardComponent(_concertService, _userService) {
+    function DashboardComponent(_concertService, _userService, _router) {
         this._concertService = _concertService;
         this._userService = _userService;
+        this._router = _router;
         this.foundShow = { band: { name: '' }, venue: '', city: '', state: '', date: '', songlist: [], lat: '', longitude: '' };
         this.openOrClose = false;
         this.attended = false;
@@ -587,12 +629,13 @@ var DashboardComponent = (function () {
     }
     DashboardComponent.prototype.ngOnInit = function () {
         this.current_user = this._userService.getCurrentUser();
-        console.log(this.current_user);
         this.getAllAttended(this.current_user);
     };
     DashboardComponent.prototype.getAllAttended = function (user) {
         var _this = this;
-        this._concertService.getAllAttended(user, function (response) { _this.shows = response; });
+        this._concertService.getAllAttended(user, function (response) {
+            _this.shows = response;
+        });
     };
     DashboardComponent.prototype.findShow = function () {
         var _this = this;
@@ -611,6 +654,12 @@ var DashboardComponent = (function () {
         this.attended = true;
         this.status = 'I went!';
     };
+    DashboardComponent.prototype.getShow = function (id) {
+        var _this = this;
+        this._concertService.showConcert(id, function (response) {
+            _this.foundShow = response;
+        });
+    };
     DashboardComponent.prototype.opener = function (boolean) {
         this.openOrClose = boolean;
     };
@@ -620,7 +669,7 @@ var DashboardComponent = (function () {
             template: __webpack_require__("../../../../../src/app/dashboard/dashboard.component.html"),
             styles: [__webpack_require__("../../../../../src/app/dashboard/dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__concerts_service__["a" /* ConcertsService */], __WEBPACK_IMPORTED_MODULE_2__users_service__["a" /* UsersService */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__concerts_service__["a" /* ConcertsService */], __WEBPACK_IMPORTED_MODULE_2__users_service__["a" /* UsersService */], __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* Router */]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
@@ -637,7 +686,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".friendContainer{\n    width: 100%;\n    margin-left: 0;\n}\n\n.friendContainer input{\n    margin: 1%;\n    width: 50%;\n    height: 1.5rem;\n}\n\n#friendSub{\n    max-width: 20%;\n    height: 2rem;\n    border: none;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: #21B4B1;\n    color: white;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n#friendSub:disabled{\n    /*color: gray;*/\n    opacity: 0.66;\n}\n", ""]);
+exports.push([module.i, ".friendContainer {\n  width: 100%;\n  margin-left: 0;\n}\n\n.friendContainer input {\n  margin: 1%;\n  width: 50%;\n  height: 1.5rem;\n}\n\n#friendSub {\n  max-width: 20%;\n  height: 2rem;\n  border: none;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: #000000;\n  color: white;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n#friendSub:disabled {\n  /*color: gray;*/\n  opacity: 0.66;\n}\n", ""]);
 
 // exports
 
@@ -698,7 +747,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".regBox, .loginBox{\n    display: inline-block;\n    max-width: 33%;\n    width: 100%;\n    vertical-align: top;\n    padding: 3%;\n    text-align: left;\n}\n\nfieldset{\n    padding: 2%;\n    /*padding-top: 3%;*/\n    width: 100%;\n}\n\nfieldset input{\n    width: 90%;\n    height: 1.5rem;\n    margin: 1%;\n}\n\nlabel{\n    font-size: 1.3rem;\n}\n\n#regBut, #logBut{\n    width: 33%;\n    height: 2rem;\n    border: none;\n    border-radius: 4px;\n    padding-top: 1.2%;\n    padding-bottom: 1.2%;\n    background-color: #21B4B1;\n    color: white;\n    font-size: 1rem;\n    box-sizing: border-box;\n}\n\n#regBut:disabled, #logBut:disabled{\n    /*color: gray;*/\n    opacity: 0.66;\n}\n", ""]);
+exports.push([module.i, ".regBox,\n.loginBox {\n  display: inline-block;\n  max-width: 33%;\n  width: 100%;\n  vertical-align: top;\n  padding: 3%;\n  text-align: left;\n}\n\n.hidden {\n  display: none;\n}\n\n.regBoxOver {\n  z-index: 100;\n  width: 100%;\n  background: rgba(0, 0, 0, 0.75);\n  position: fixed;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n}\n\n.regBox {\n  margin-top: 5%;\n  padding-right: 5%;\n  background: rgba(255, 255, 255, 0.75);\n}\n\nfieldset {\n  padding: 2%;\n  /*padding-top: 3%;*/\n  width: 100%;\n}\n\n.regBox fieldset {\n  background: rgba(255, 255, 255, 0);\n}\n\nfieldset input {\n  width: 90%;\n  height: 1.5rem;\n  margin: 1%;\n}\n\nlabel {\n  font-size: 1.3rem;\n}\n\n#regBut,\n#logBut {\n  width: 33%;\n  height: 2rem;\n  border: none;\n  border-radius: 4px;\n  padding-top: 1.2%;\n  padding-bottom: 1.2%;\n  background-color: #000000;\n  color: white;\n  font-size: 1rem;\n  box-sizing: border-box;\n}\n\n#regBut:disabled,\n#logBut:disabled {\n  /*color: gray;*/\n  opacity: 0.66;\n}\n", ""]);
 
 // exports
 
@@ -711,7 +760,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/login/login.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n\n<div class=\"regBox\">\n    <fieldset>\n        <legend><h2>Register</h2></legend>\n        <form #regForm=\"ngForm\" (submit)=\"regNewUser()\">\n            <label for=\"firstName\">First Name:</label><br>\n            <input type=\"text\"\n            name=\"firstName\"\n            [(ngModel)]=\"newUser.firstName\"\n            #firstName=\"ngModel\"\n            required\n            minlength=\"1\"><br>\n            <span class=\"errors\" [hidden]=\"firstName.valid || firstName.pristine\">First Name is required</span><br>\n            <label for=\"lastName\">Last Name:</label><br>\n            <input type=\"text\"\n            name=\"lastName\"\n            [(ngModel)]=\"newUser.lastName\"\n            #lastName=\"ngModel\"\n            required\n            minlength=\"1\"><br>\n            <span class=\"errors\" [hidden]=\"lastName.valid || lastName.pristine\">Last Name is required</span><br>\n            <label for=\"email\">Email:</label><br>\n            <input type=\"text\"\n            name=\"email\"\n            required\n            pattern=\"[a-zA-Z0-9\\.-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{3}\"\n            [(ngModel)]=\"newUser.email\"\n            #email=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"email.valid || email.pristine\">Email is required and must be a valid email format.</span><br>\n            <label for=\"city\">City:</label><br>\n            <input type=\"text\"\n            name=\"city\"\n            required\n            [(ngModel)]=\"newUser.city\"\n            #city=\"ngModel\"\n            minlength=\"1\"><br>\n            <span class=\"errors\" [hidden]=\"city.valid || city.pristine\">City is required</span><br>\n            <label for=\"state\">State:</label><br>\n            <input type=\"text\"\n            name=\"state\"\n            required\n            [(ngModel)]=\"newUser.state\"\n            #state=\"ngModel\"\n            minlength=\"1\"><br>\n            <span class=\"errors\" [hidden]=\"state.valid || state.pristine\">State is required</span><br>\n            <label for=\"password\">Password:</label><br>\n            <input type=\"password\"\n            name=\"password\"\n            required\n            [(ngModel)]=\"newUser.password\"\n            #password=\"ngModel\"\n            minlength=\"6\"><br>\n            <span class=\"errors\" [hidden]=\"password.valid || password.pristine\">Password is required and must be at least 6 characters long</span><br>\n            <input type=\"submit\" id=\"regBut\" value=\"Register\" [disabled]=\"!regForm.form.valid\">\n        </form>\n    </fieldset>\n</div>\n<div class=\"loginBox\">\n    <fieldset>\n        <legend><h2>Login</h2></legend>\n        <form #loginForm=\"ngForm\" (submit)=\"loginUser()\">\n            <label for=\"logEmail\">Email:</label><br>\n            <input type=\"text\"\n            name=\"logEmail\"\n            required\n            [(ngModel)]=\"logUser.logEmail\"\n            #logEmail=\"ngModel\"\n            pattern=\"[a-zA-Z0-9\\.-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{3}\"><br>\n            <span class=\"errors\" [hidden]=\"logEmail.valid || logEmail.pristine\">Email is required to login</span><br>\n            <label for=\"logPass\">Password:</label><br>\n            <input type=\"password\"\n            name=\"logPass\"\n            required\n            [(ngModel)]=\"logUser.logPass\"\n            #logPass=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"logPass.valid || logPass.pristine\">Password is required to login</span><br>\n            <input type=\"submit\" id=\"logBut\" value=\"Login\" [disabled]=\"!loginForm.form.valid\">\n        </form>\n    </fieldset>\n</div>\n"
+module.exports = "\n<div [ngClass]=\"{'regBoxOver':true, 'hidden':!newUserOpen}\">\n    <div [ngClass]=\"{'regBox':true}\">\n        <fieldset>\n            <legend><h2>Register</h2></legend>\n            <form #regForm=\"ngForm\" (submit)=\"regNewUser()\">\n                <label for=\"firstName\">First Name:</label><br>\n                <input type=\"text\"\n                name=\"firstName\"\n                [(ngModel)]=\"newUser.firstName\"\n                #firstName=\"ngModel\"\n                required\n                minlength=\"1\"><br>\n                <span class=\"errors\" [hidden]=\"firstName.valid || firstName.pristine\">First Name is required</span><br>\n                <label for=\"lastName\">Last Name:</label><br>\n                <input type=\"text\"\n                name=\"lastName\"\n                [(ngModel)]=\"newUser.lastName\"\n                #lastName=\"ngModel\"\n                required\n                minlength=\"1\"><br>\n                <span class=\"errors\" [hidden]=\"lastName.valid || lastName.pristine\">Last Name is required</span><br>\n                <label for=\"email\">Email:</label><br>\n                <input type=\"text\"\n                name=\"email\"\n                required\n                pattern=\"[a-zA-Z0-9\\.-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{3}\"\n                [(ngModel)]=\"newUser.email\"\n                #email=\"ngModel\"><br>\n                <span class=\"errors\" [hidden]=\"email.valid || email.pristine\">Email is required and must be a valid email format.</span><br>\n                <label for=\"city\">City:</label><br>\n                <input type=\"text\"\n                name=\"city\"\n                required\n                [(ngModel)]=\"newUser.city\"\n                #city=\"ngModel\"\n                minlength=\"1\"><br>\n                <span class=\"errors\" [hidden]=\"city.valid || city.pristine\">City is required</span><br>\n                <label for=\"state\">State:</label><br>\n                <input type=\"text\"\n                name=\"state\"\n                required\n                [(ngModel)]=\"newUser.state\"\n                #state=\"ngModel\"\n                minlength=\"1\"><br>\n                <span class=\"errors\" [hidden]=\"state.valid || state.pristine\">State is required</span><br>\n                <label for=\"password\">Password:</label><br>\n                <input type=\"password\"\n                name=\"password\"\n                required\n                [(ngModel)]=\"newUser.password\"\n                #password=\"ngModel\"\n                minlength=\"6\"><br>\n                <span class=\"errors\" [hidden]=\"password.valid || password.pristine\">Password is required and must be at least 6 characters long</span><br>\n                <input type=\"submit\" id=\"regBut\" value=\"Register\" [disabled]=\"!regForm.form.valid\">\n            </form>\n            <a href=\"javascript:void(0)\" (click)=\"newUserDiv(false)\">Already registered? Click here to login</a>\n        </fieldset>\n    </div>\n</div>\n<div class=\"loginBox\">\n    <fieldset>\n        <legend><h2>Login</h2></legend>\n        <form #loginForm=\"ngForm\" (submit)=\"loginUser()\">\n            <label for=\"logEmail\">Email:</label><br>\n            <input type=\"text\"\n            name=\"logEmail\"\n            required\n            [(ngModel)]=\"logUser.logEmail\"\n            #logEmail=\"ngModel\"\n            pattern=\"[a-zA-Z0-9\\.-]+@[a-zA-Z0-9]+\\.[a-zA-Z]{3}\"><br>\n            <span class=\"errors\" [hidden]=\"logEmail.valid || logEmail.pristine\">Email is required to login</span><br>\n            <label for=\"logPass\">Password:</label><br>\n            <input type=\"password\"\n            name=\"logPass\"\n            required\n            [(ngModel)]=\"logUser.logPass\"\n            #logPass=\"ngModel\"><br>\n            <span class=\"errors\" [hidden]=\"logPass.valid || logPass.pristine\">Password is required to login</span><br>\n            <input type=\"submit\" id=\"logBut\" value=\"Login\" [disabled]=\"!loginForm.form.valid\">\n        </form>\n        <a href=\"javascript:void(0)\" (click)=\"newUserDiv(true)\">Not a User? Click her to register.</a>\n    </fieldset>\n</div>\n"
 
 /***/ }),
 
@@ -741,16 +790,23 @@ var LoginComponent = (function () {
         this._router = _router;
         this.newUser = {};
         this.logUser = {};
+        this.newUserOpen = false;
     }
-    LoginComponent.prototype.ngOnInit = function () {
-    };
+    LoginComponent.prototype.ngOnInit = function () { };
     LoginComponent.prototype.regNewUser = function () {
         var _this = this;
-        this._userService.regUser(this.newUser, function (response) { _this._router.navigate(['dashboard']); });
+        this._userService.regUser(this.newUser, function (response) {
+            _this._router.navigate(['dashboard']);
+        });
+    };
+    LoginComponent.prototype.newUserDiv = function (bool) {
+        this.newUserOpen = bool;
     };
     LoginComponent.prototype.loginUser = function () {
         var _this = this;
-        this._userService.checkUser(this.logUser, function (response) { _this._router.navigate(['dashboard']); });
+        this._userService.checkUser(this.logUser, function (response) {
+            _this._router.navigate(['dashboard']);
+        });
     };
     LoginComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -817,6 +873,13 @@ var UsersService = (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "../../../../../src/assets/images/background1.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "background1.84895073d736be24809f.jpg";
 
 /***/ }),
 
