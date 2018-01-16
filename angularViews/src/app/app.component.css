@@ -11,6 +11,9 @@
   display: inline-block;
 }
 
+.hdrInfo img {
+}
+
 .hdrLinks {
   /*float: right;*/
   /*margin-right: 1%;*/
