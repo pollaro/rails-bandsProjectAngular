@@ -79,7 +79,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, ".header {\n  height: 5%;\n  padding: 1%;\n  padding-top: 2%;\n  padding-bottom: 2%;\n  background: linear-gradient(#d4d4d4, #0c1017);\n}\n\n.hdrInfo {\n  width: 66%;\n  display: inline-block;\n}\n\n.hdrInfo img {\n}\n\n.hdrLinks {\n  /*float: right;*/\n  /*margin-right: 1%;*/\n  display: inline-block;\n  text-align: right;\n  width: 33%;\n}\n\n.hdrLinks a {\n  box-sizing: border-box;\n  margin: 2%;\n  color: black;\n  text-decoration: none;\n  font-size: 1.2rem;\n  /*float: right;*/\n}\n\n.hdrLinks a:hover {\n  text-decoration: underline;\n  color: #0056b3;\n}\n\n.sideBar img {\n  vertical-align: middle;\n}\n\n.sideBar h1 {\n  vertical-align: middle;\n  display: inline;\n}\n.backgroundImg {\n  z-index: -10;\n  position: absolute;\n  background-image: image_url('background1.jpg');\n  width: 100%;\n  height: 100%;\n  background-position: 50% 0%;\n  -ms-background-size: cover;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n.mainContent {\n  display: inline-block;\n  width: 90%;\n  margin-top: 1%;\n  margin-left: 5%;\n  /*margin-right: 10%;*/\n  text-align: center;\n}\n\n#logout:hover {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, ".header {\n  height: 5%;\n  padding: 1%;\n  padding-top: 2%;\n  padding-bottom: 2%;\n  background: linear-gradient(#d4d4d4, #0c1017);\n}\n\n.hdrInfo {\n  width: 66%;\n  display: inline-block;\n}\n\n.hdrLinks {\n  /*float: right;*/\n  /*margin-right: 1%;*/\n  display: inline-block;\n  text-align: right;\n  width: 33%;\n}\n\n.hdrLinks a {\n  box-sizing: border-box;\n  margin: 2%;\n  color: black;\n  text-decoration: none;\n  font-size: 1.2rem;\n  /*float: right;*/\n}\n\n.hdrLinks a:hover {\n  text-decoration: underline;\n  color: #0056b3;\n}\n\n.sideBar img {\n  vertical-align: middle;\n}\n\n.sideBar h1 {\n  vertical-align: middle;\n  display: inline;\n}\n.backgroundImg {\n  z-index: -10;\n  position: absolute;\n  background-image: url(" + __webpack_require__("../../../../../src/assets/images/background1.jpg") + ");\n  width: 100%;\n  height: 100%;\n  background-position: 50% 0%;\n  -ms-background-size: cover;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n.mainContent {\n  display: inline-block;\n  width: 90%;\n  margin-top: 1%;\n  margin-left: 5%;\n  /*margin-right: 10%;*/\n  text-align: center;\n}\n\n#logout:hover {\n  cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -873,6 +873,13 @@ var UsersService = (function () {
 }());
 
 
+
+/***/ }),
+
+/***/ "../../../../../src/assets/images/background1.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "background1.84895073d736be24809f.jpg";
 
 /***/ }),
 
