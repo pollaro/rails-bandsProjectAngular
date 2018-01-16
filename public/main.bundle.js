@@ -92,7 +92,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"header\">\n    <div class=\"hdrInfo\">\n        <img src=\"../assets/images/noted_word3.png\" alt=\"Noted Logo\">\n    </div>\n    <span class=\"hdrLinks\"><a [routerLink]=\"['dashboard']\">Home</a> <a [routerLink]=\"['dashboard','bands']\">Bands</a> <a [routerLink]=\"['dashboard','concerts']\">Concerts</a> <a id=\"logout\" (click)=\"logout()\">Logout</a></span>\n</div>\n\n<div class=\"backgroundImg\">\n    <img src=\"../assets/images/background1.jpg\" alt=\"Background of crowd at a concert\">\n    <div class=\"mainContent\">\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
+module.exports = "<div class=\"header\">\n    <div class=\"hdrInfo\">\n        <img src=\"../assets/images/noted_word3.png\" alt=\"Noted Logo\">\n    </div>\n    <span class=\"hdrLinks\"><a [routerLink]=\"['dashboard']\">Home</a> <a [routerLink]=\"['dashboard','bands']\">Bands</a> <a [routerLink]=\"['dashboard','concerts']\">Concerts</a> <a id=\"logout\" (click)=\"logout()\">Logout</a></span>\n</div>\n\n<div class=\"backgroundImg\">\n    <!-- <img src=\"../assets/images/background1.jpg\" alt=\"Background of crowd at a concert\"> -->\n    <div class=\"mainContent\">\n        <router-outlet></router-outlet>\n    </div>\n</div>\n"
 
 /***/ }),
 
