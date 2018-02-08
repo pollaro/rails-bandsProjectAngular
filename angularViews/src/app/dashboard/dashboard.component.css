@@ -81,10 +81,12 @@ fieldset input {
 
 .concertDetailsCtnt h3 {
   margin-left: 3%;
+  color: black;
 }
 
 .concertDetailsCtnt th {
   border-bottom: solid thin black;
+  color: black;
 }
 
 .didnt {
