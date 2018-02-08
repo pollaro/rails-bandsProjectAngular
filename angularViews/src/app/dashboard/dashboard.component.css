@@ -1,3 +1,7 @@
+* {
+  color: white;
+}
+
 .col {
   display: inline-block;
   text-align: left;
@@ -147,4 +151,46 @@ fieldset input {
 #findBut:disabled {
   color: gray;
   opacity: 0.66;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 959px) {
+  * {
+    overflow-y: auto;
+  }
+
+  .leftCol-m {
+    display: block;
+    width: 100%;
+  }
+
+  .rightCol-m {
+    display: block;
+    padding-left: 3%;
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  * {
+    overflow-y: auto;
+  }
+
+  .leftCol-s {
+    display: block;
+    width: 100%;
+  }
+
+  .leftCol-s fieldset {
+    width: 90%;
+  }
+
+  .leftCol-s label {
+    color: black;
+  }
+
+  .rightCol-m {
+    display: block;
+    padding-left: 3%;
+    width: 100%;
+  }
 }

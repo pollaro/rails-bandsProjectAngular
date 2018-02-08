@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 import { Http } from '@angular/http'
 import { Router } from '@angular/router'
 
@@ -8,13 +8,14 @@ import { Router } from '@angular/router'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    title = 'app';
+  title = 'app'
+  isOpen = false
 
-    constructor(private _http:Http, private _router:Router){}
+  constructor(private _http: Http, private _router: Router) {}
 
-    logout(){
-        this._http.get('/logout').subscribe(
-            (response) => { this._router.navigateByUrl('/') }
-        )
-    }
+  logout() {
+    this._http.get('/logout').subscribe((response) => {
+      this._router.navigateByUrl('/')
+    })
+  }
 }

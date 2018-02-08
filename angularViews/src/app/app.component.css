@@ -15,6 +15,8 @@
   /*float: right;*/
   /*margin-right: 1%;*/
   display: inline-block;
+  vertical-align: top;
+  padding-top: 2%;
   text-align: right;
   width: 33%;
 }
@@ -66,4 +68,90 @@
 
 #logout:hover {
   cursor: pointer;
+}
+
+button {
+  display: none;
+}
+
+@media only screen and (min-width: 481px) and (max-width: 959px) {
+  .hdrLinks-m {
+    display: block;
+    position: fixed;
+    top: 120px;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    background-color: black;
+    text-align: center;
+    color: white;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .hdrLinks-m a {
+    display: block;
+    color: white;
+  }
+
+  button {
+    display: block;
+    width: 29px;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+  }
+
+  .menuIcon {
+    width: 22px;
+    height: 2px;
+    margin: 2px 0;
+    background-color: white;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .hdrLinks-m {
+    display: block;
+    position: fixed;
+    top: 120px;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    z-index: 1;
+    background-color: black;
+    text-align: center;
+    color: white;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .hdrLinks-m a {
+    display: block;
+    color: white;
+  }
+
+  button {
+    display: block;
+    width: 29px;
+    background-color: black;
+    border: none;
+    color: white;
+    padding: 1%;
+    text-align: center;
+  }
+
+  .menuIcon {
+    width: 22px;
+    height: 2px;
+    margin: 2px 0;
+    background-color: white;
+  }
 }
