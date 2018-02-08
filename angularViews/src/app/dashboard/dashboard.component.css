@@ -48,6 +48,7 @@ fieldset input {
   /*overflow-y: auto;*/
   background-color: white;
   box-shadow: 0px 6px 2px -7px gray;
+  color: black;
 }
 
 .hidden {
