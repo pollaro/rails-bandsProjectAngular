@@ -163,6 +163,10 @@ fieldset input {
     width: 100%;
   }
 
+  .leftCol-m fieldset {
+    width: 90%;
+  }
+
   .rightCol-m {
     display: block;
     padding-left: 3%;

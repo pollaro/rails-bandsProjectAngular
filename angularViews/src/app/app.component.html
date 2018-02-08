@@ -4,7 +4,7 @@
         <br>
         <button type="button" (click)="isOpen = !isOpen"><div class="menuIcon"></div><div class="menuIcon"></div><div class="menuIcon"></div></button>
     </div>
-    <span class="hdrLinks hdrLinks-m" [ngClass]="{'hidden':isOpen==false}"><a [routerLink]="['dashboard']">Home</a> <a [routerLink]="['dashboard','bands']">Bands</a> <a [routerLink]="['dashboard','concerts']">Concerts</a> <a id="logout" (click)="logout()">Logout</a></span>
+    <span class="hdrLinks hdrLinks-m" [ngClass]="{'hidden':isOpen==false}"> <a [routerLink]="['dashboard']" (click)="isOpen=false">Home</a> <a [routerLink]="['dashboard','bands']" (click)="isOpen=false">Bands</a> <a [routerLink]="['dashboard','concerts']" (click)="isOpen=false">Concerts</a> <a id="logout" (click)="logout()">Logout</a></span>
 </div>
 
 <div class="backgroundImg">
